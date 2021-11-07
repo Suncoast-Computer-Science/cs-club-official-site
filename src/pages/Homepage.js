@@ -9,7 +9,7 @@ export default function Homepage() {
       <Container>
         <Row>
           <Col sm={12} lg={8}>
-            <h1> December Inter School Competition</h1>
+            <h1> December Inter-School Competition</h1>
           </Col>
         </Row>
         <Row>
