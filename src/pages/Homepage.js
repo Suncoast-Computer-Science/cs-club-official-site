@@ -14,7 +14,7 @@ export default function Homepage() {
         </Row>
         <Row>
           <p>
-            The Suncoast CS Club December Inter-School Competition is a high school programming contest for students in grades 9-12. The programming contest is modelled after USA Computing Olympiad, and the UCF High School Programming Contest. The contest will require students to use their understandings of logic, algorithms, and data structures to solve programming puzzles.
+            The Suncoast CS Club December Inter-School Competition is a high school programming contest for students in grades 9-12. The programming contest is modeled after USA Computing Olympiad, and the UCF High School Programming Contest. The contest will require students to use their understandings of logic, algorithms, and data structures to solve programming puzzles.
           </p>
         </Row>
         <Row>
@@ -22,7 +22,7 @@ export default function Homepage() {
             <h3>Details</h3>
           </Col>
           <p>
-            The Suncoast CS Club December Inter-School Competition is a high school programming contest for students in grades 9-12. The programming contest is modelled after USA Computing Olympiad, and the UCF High School Programming Contest. The contest will require students to use their understandings of logic, algorithms, and data structures to solve programming puzzles.
+            The Suncoast CS Club December Inter-School Competition is a high school programming contest for students in grades 9-12. The programming contest is modeled after USA Computing Olympiad, and the UCF High School Programming Contest. The contest will require students to use their understandings of logic, algorithms, and data structures to solve programming puzzles.
           </p>
         </Row>
         <Row>
