@@ -1,0 +1,83 @@
+{
+  "competitions": {
+    "competition-id": {
+      "start-date": 0,
+      "end-date": 1000000000,
+      "in-person": true,
+      "problems": [
+        "hello-world"
+      ]
+    }
+  },
+  "problems": {
+    "hello-world": {
+      "testcases": [
+        {
+          "in": "Monty\n",
+          "out": "Hello, Monty!\n"
+        },
+        {
+          "in": "Bruh\n",
+          "out": "Hello, Bruh!\n"
+        },
+        {
+          "in": "Rohit\n",
+          "out": "Hello, Rohit!\n"
+        },
+        {
+          "in": "Mr. Donato\n",
+          "out": "Hello, Mr. Donato!\n"
+        },
+        {
+          "in": "CS Club\n",
+          "out": "Hello, CS Club!\n"
+        },
+        {
+          "in": "World\n",
+          "out": "Hello, World!\n"
+        },
+        {
+          "in": "Finland\n",
+          "out": "Hello, Finland!\n"
+        },
+        {
+          "in": "Test Cases\n",
+          "out": "Hello, Test Cases!\n"
+        },
+        {
+          "in": "Mr. Dasgupta\n",
+          "out": "Hello, Mr. Dasgupta!\n"
+        },
+        {
+          "in": "Bruh2\n",
+          "out": "Hello, Bruh2!\n"
+        }
+      ]
+    }
+  },
+  "submissions": {
+    "competition-id": {
+      "hello-world": {
+        "Q6U7byarTnfXnUldsWt5vXGNl6t1": [
+          {
+            "time": 0,
+            "testcases": [
+              "WRONG",
+              "TIME LIMIT EXCEEDED",
+              "CORRECT",
+              "RUNTIME ERROR",
+              "CORRECT",
+              "WRONG",
+              "TIME LIMIT EXCEEDED",
+              "CORRECT",
+              "RUNTIME ERROR",
+              "CORRECT"
+            ],
+            "language": 70,
+            "submission": "print(100)\n"
+          }
+        ]
+      }
+    }
+  }
+}
