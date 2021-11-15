@@ -42,12 +42,13 @@ app.get('/submission/:competitionId/:problemId/:userId', (req, res) => {
   const { competitionId, problemId, userId } = req.params
   output = {}
   admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).once('value', snapshot => {
-    const testcases = snapshot.val()[snapshot.val().length - 1].testcases
-    for (let i in testcases) {
-      output[i] = testcases[i]
+    try {
+      const test_cases = snapshot.val()[snapshot.val().length - 1].testcases
+      res.send(test_cases) // We can send all testcases and not even check if they're done because the post request can unpdate the testcases as pending
+    } catch {
+      res.status(400).send('User does not have any submissions for this problem')
     }
-    output = testcases
-    res.send(output)
+
   })
 })
 
