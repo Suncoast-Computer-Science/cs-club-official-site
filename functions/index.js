@@ -52,4 +52,30 @@ app.get('/submission/:competitionId/:problemId/:userId', (req, res) => {
   })
 })
 
+app.post('/submission/:competitionId/:problemId/:userId/', (req, res) => {
+  const { competitionId, problemId, userId } = req.params
+  const { submission, language } = req.body
+  let testcaseCount;
+  admin.database().ref(`problems/${problemId}/testcases`).once('value', snapshot => { // Needed to get size of the database
+    testcaseCount = snapshot.val().length
+    const newSubmission = {
+      submission: submission,
+      language: language,
+      time: Date.now(),
+      testcases: Array(testcaseCount).fill("PENDING")
+    }
+    admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).once('value', snapshot => { // Needed to get size of the database
+      let index = !!snapshot.val() ? snapshot.val().length : 0
+      admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).child(index).set(newSubmission).then(() => {
+        // TODO: Code to update submissions here
+        res.send('Request Sent')
+      }).catch(() => {
+        res.send("Request not Sent")
+      })
+    }).catch(() => {
+      res.send("Request not Sent")
+    })
+  })
+})
+
 exports.api = functions.https.onRequest(app)
