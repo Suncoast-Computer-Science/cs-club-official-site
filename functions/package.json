@@ -15,6 +15,7 @@
   "main": "index.js",
   "dependencies": {
     "@google-cloud/language": "^4.3.1",
+    "axios": "^0.24.0",
     "busboy": "^0.3.1",
     "express": "^4.17.1",
     "firebase-admin": "^9.8.0",

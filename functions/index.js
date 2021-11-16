@@ -1,7 +1,8 @@
-const functions = require('firebase-functions')
 require('dotenv').config({ path: '../.env' })
+const functions = require('firebase-functions')
 const express = require('express')
 const app = express()
+const axios = require('axios')
 app.use(express.json())
 
 const admin = require('firebase-admin');
@@ -36,20 +37,25 @@ admin.initializeApp({
 // };
 // app.use(authenticate);
 
+const getUserSubmissionTestcases = (competitionId, problemId, userId) => {
+  admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).once('value', snapshot => {
+    try {
+      const testcases = snapshot.val()[snapshot.val().length - 1].testcases
+      return testcases // We can send all testcases and not even check if they're done because the post request can unpdate the testcases as pending
+    } catch {
+      return "error"
+    }
+
+  })
+}
+
 // GET /api/submission/:competitionId/:problemId
 // Returns latest results for a user's last submission of a competition problem
 app.get('/submission/:competitionId/:problemId/:userId', (req, res) => {
   const { competitionId, problemId, userId } = req.params
   output = {}
-  admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).once('value', snapshot => {
-    try {
-      const test_cases = snapshot.val()[snapshot.val().length - 1].testcases
-      res.send(test_cases) // We can send all testcases and not even check if they're done because the post request can unpdate the testcases as pending
-    } catch {
-      res.status(400).send('User does not have any submissions for this problem')
-    }
-
-  })
+  const testcases = getUserSubmissionTestcases(competitionId, problemId, userId);
+  res.send(testcases)
 })
 
 app.post('/submission/:competitionId/:problemId/:userId/', (req, res) => {
