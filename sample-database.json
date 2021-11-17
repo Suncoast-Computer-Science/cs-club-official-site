@@ -13,44 +13,44 @@
     "hello-world": {
       "testcases": [
         {
-          "in": "Monty\n",
-          "out": "Hello, Monty!\n"
+          "input": "Monty\n",
+          "output": "Hello, Monty!\n"
         },
         {
-          "in": "Bruh\n",
-          "out": "Hello, Bruh!\n"
+          "input": "Bruh\n",
+          "output": "Hello, Bruh!\n"
         },
         {
-          "in": "Rohit\n",
-          "out": "Hello, Rohit!\n"
+          "input": "Rohit\n",
+          "output": "Hello, Rohit!\n"
         },
         {
-          "in": "Mr. Donato\n",
-          "out": "Hello, Mr. Donato!\n"
+          "input": "Mr. Donato\n",
+          "output": "Hello, Mr. Donato!\n"
         },
         {
-          "in": "CS Club\n",
-          "out": "Hello, CS Club!\n"
+          "input": "CS Club\n",
+          "output": "Hello, CS Club!\n"
         },
         {
-          "in": "World\n",
-          "out": "Hello, World!\n"
+          "input": "World\n",
+          "output": "Hello, World!\n"
         },
         {
-          "in": "Finland\n",
-          "out": "Hello, Finland!\n"
+          "input": "Finland\n",
+          "output": "Hello, Finland!\n"
         },
         {
-          "in": "Test Cases\n",
-          "out": "Hello, Test Cases!\n"
+          "input": "Test Cases\n",
+          "output": "Hello, Test Cases!\n"
         },
         {
-          "in": "Mr. Dasgupta\n",
-          "out": "Hello, Mr. Dasgupta!\n"
+          "input": "Mr. Dasgupta\n",
+          "output": "Hello, Mr. Dasgupta!\n"
         },
         {
-          "in": "Bruh2\n",
-          "out": "Hello, Bruh2!\n"
+          "input": "Bruh2\n",
+          "output": "Hello, Bruh2!\n"
         }
       ]
     }

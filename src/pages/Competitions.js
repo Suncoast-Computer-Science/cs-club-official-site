@@ -21,6 +21,7 @@ export default function Competitions() {
     }), []
   ) // Get data only once
 
+  // This is broken since I've changed the format. Follow the format now in sample-database.json to fix this
   return (
     <>
       <Header />

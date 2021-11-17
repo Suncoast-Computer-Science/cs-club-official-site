@@ -25,7 +25,9 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} />
-          <PrivateRoute exact path="/settings" element={<Settings />} />
+          <Route exact path="/settings" element={<PrivateRoute/>}>
+            <Route exact path="/settings" element={<Settings />} />
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>
