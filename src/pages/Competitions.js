@@ -18,6 +18,7 @@ export default function Competitions() {
         competitions.push(obj)
       })
       setData(competitions)
+      console.log(competitions)
     }), []
   ) // Get data only once
 
@@ -27,7 +28,7 @@ export default function Competitions() {
       <Header />
       {data ?
         data.map((val, i) =>
-          <CompetitionCard name={val.name} date={val.startDate} about={val.about} link={"/competitions/" + val.key} key={i} />
+          <CompetitionCard name={val.name} date={val['start-date']} about={val.about} link={"/competitions/" + val.key} key={i} />
         )
         :
         "loading"

@@ -1,6 +1,8 @@
 {
   "competitions": {
     "competition-id": {
+      "name": "Test Competition",
+      "about": "About this competition",
       "start-date": 0,
       "end-date": 1000000000,
       "in-person": true,
