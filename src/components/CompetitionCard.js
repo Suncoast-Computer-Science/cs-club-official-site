@@ -3,7 +3,6 @@ import { Card, Button } from 'react-bootstrap'
 export default function CompetitionCard({ name, date, about, link }) {
   return (
     <Card>
-      <Card.Header>{date}</Card.Header>
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
