@@ -30,7 +30,7 @@ export default function Signin() {
             <Card className='mx-auto mt-5' style={{ width: '25rem'}}>
               <Card.Header as="h4" className='text-center'>Create your account</Card.Header>
               <Card.Body > 
-                <Form>
+                <Form >
                   <Form.Group className="mb-3" controlId="formGroupEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" ref={emailRef} placeholder="Enter email" />

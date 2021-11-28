@@ -39,7 +39,7 @@ export default function Signin() {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" ref={passwordRef} placeholder="Password" />
                   </Form.Group>
-                </Form>   
+                </Form >   
                 <Button variant="primary" onClick={handleEvent} type="submit"> Login </Button>
               </Card.Body> 
               <Card.Footer >
