@@ -28,7 +28,7 @@ export default function About() {
         </Row> 
       </Container>
 
-      {/* Cards for club officers */}
+      {/* Cards for club officers  */}
       <Container fluid className="mx-auto bg-light">
         <Row className="py-3">
           <Col className="text-center">
