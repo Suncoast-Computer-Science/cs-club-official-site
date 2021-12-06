@@ -4,6 +4,10 @@ import { useAuth } from '../api/AuthContext';
 
 // Must have an account to enter
 export default function PrivateRoute({ children, ...rest }) {
-  let auth = useAuth();
-  return auth ? <Outlet /> : <Navigate to="/login" />;
+  let {currentUser} = useAuth();
+  if (!!currentUser) {
+    return <Outlet />
+  } else {
+    return <Navigate to="/signin" />
+  }
 }
