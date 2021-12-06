@@ -10,7 +10,7 @@ export default function CompetitionCard({ name, date, about, link }) {
         </Card.Text>
         <Button variant="primary" href={link}>Learn More</Button>
       </Card.Body>
-      <Card.Footer className="text-muted">Register by: {date}</Card.Footer>
+      <Card.Footer className="text-muted">Start Date: {(new Date(date)).toString()}</Card.Footer>
     </Card>
   )
 }

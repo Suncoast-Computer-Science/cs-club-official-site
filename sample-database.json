@@ -3,8 +3,8 @@
     "competition-id": {
       "name": "Test Competition",
       "about": "About this competition",
-      "start-date": 0,
-      "end-date": 1000000000,
+      "start-date": 1638814670162,
+      "end-date": 1640024330286,
       "in-person": true,
       "problems": [
         "hello-world"
