@@ -28,7 +28,7 @@ export default function Competitions() {
       <Header />
       {data ?
         data.map((val, i) =>
-          <CompetitionCard name={val.name} date={val['start-date']} about={val.about} link={"/competitions/" + val.key} key={i} />
+          <CompetitionCard name={val.name} date={val['end-date']} about={val.about} link={"/competitions/" + val.key} key={i} />
         )
         :
         "loading"
