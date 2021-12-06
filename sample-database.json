@@ -13,6 +13,19 @@
   },
   "problems": {
     "hello-world": {
+      "data": {
+        "name": "Hello World",
+        "author": "Rohit Dasgupta",
+        "statement": "Print 'Hello World!' to standard output",
+        "input": "No Input",
+        "output": "Print 'Hello World!' to standard output",
+        "samples": [
+          {
+            "input": "",
+            "output": "Hello World!"
+          }
+        ]
+      },
       "testcases": [
         {
           "input": "Monty\n",
