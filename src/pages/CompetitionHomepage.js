@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useAuth } from "../api/AuthContext"
 import { useParams } from "react-router-dom"
+
+import ProblemCard from '../components/ProblemCard'
 import Header from '../components/Header'
 
 export default function CompetitionHomepage() {
@@ -12,7 +14,6 @@ export default function CompetitionHomepage() {
   useEffect(() => {
     db.ref('competitions/' + id).once("value", snapshot => {
       let data = snapshot.val()
-      data.problems = data.problems.slice(1, data.problems.length - 1).split(", ") // Will update firebase problems later to be more compact (without surrounding [] and ', ')
       setCompetitionData(data)
     })
   }, [])
@@ -20,20 +21,29 @@ export default function CompetitionHomepage() {
   useEffect(() => {
     if (!competitionData) return; // Ensure that this only runs once the data from the competition comes 
 
-    console.log(competitionData)
+    console.log(competitionData.problems)
     let problems = []
-    // for (let problem of competitionData.problems) {
-    //   db.ref('problems/' + problem).once("value", snapshot => {
-    //     problems.append({...snap})
-    //   })
-    // }
-    setProblemData()
+    for (let problem of competitionData.problems) {
+      db.ref('problems/' + problem + '/data').once("value", snapshot => {
+        problems.push({ ...snapshot.val(), id: problem })
+      }).then(() => {
+        console.log(problems)
+        setProblemData(problems)
+      })
+    }
   }, [competitionData])
 
   return (
     <>
       <Header />
-      {id}
+      {problemData.map((problem) => <ProblemCard
+        competitionId={id}
+        problemId={problem.id}
+        problemAuthor={problem.author}
+        problemName={problem.name}
+        problemInput={problem.input}
+        problemOutput={problem.output}
+      />)}
     </>
   )
 }
