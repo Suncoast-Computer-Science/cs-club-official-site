@@ -122,4 +122,28 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
   res.send(testcaseResults) // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
 })
 
+app.post('/test/', async (req, res) => {
+  const { submission, language, stdin } = req.body
+
+  const result = await axios({
+    method: 'POST',
+    url: 'https://' + process.env.RAPIDAPI_ENDPOINT + '/submissions',
+    params: {
+      base64_endcoded: 'true',
+      wait: 'true',
+    },
+    headers: {
+      'content-type': 'application/json',
+      'x-rapidapi-host': process.env.RAPIDAPI_ENDPOINT,
+      'x-rapidapi-key': process.env.RAPIDAPI_KEY
+    },
+    data: {
+      language_id: language,
+      source_code: submission,
+      stdin
+    }
+  })
+  res.send(result.data)
+})
+
 exports.api = functions.https.onRequest(app)
