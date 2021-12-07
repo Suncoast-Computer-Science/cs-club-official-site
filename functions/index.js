@@ -3,6 +3,12 @@ const functions = require('firebase-functions')
 const express = require('express')
 const app = express()
 const axios = require('axios')
+const cors = require('cors')
+
+app.use(express.urlencoded());
+app.use(express.json());
+app.use(cors())
+
 app.use(express.json())
 
 const admin = require('firebase-admin');
@@ -122,10 +128,9 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
   res.send(testcaseResults) // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
 })
 
-app.get('/test/', async (req, res) => {
+app.post('/test/', (req, res) => {
   const { submission, language, stdin } = req.body
-
-  const result = await axios({
+  axios({
     method: 'POST',
     url: 'https://' + process.env.RAPIDAPI_ENDPOINT + '/submissions',
     params: {
@@ -142,8 +147,10 @@ app.get('/test/', async (req, res) => {
       source_code: submission,
       stdin
     }
-  })
-  res.send(result.data)
+  }).then((result) => {
+
+    res.send(result.data)
+  }).catch((error) => console.log(error))
 })
 
 exports.api = functions.https.onRequest(app)
