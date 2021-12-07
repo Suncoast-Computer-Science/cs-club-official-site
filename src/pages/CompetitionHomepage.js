@@ -43,6 +43,7 @@ export default function CompetitionHomepage() {
         problemName={problem.name}
         problemInput={problem.input}
         problemOutput={problem.output}
+        problemPreview={problem.preview}
       />)}
     </>
   )

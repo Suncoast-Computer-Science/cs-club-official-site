@@ -19,6 +19,7 @@
         "statement": "Print 'Hello World!' to standard output",
         "input": "No Input",
         "output": "Print 'Hello World!' to standard output",
+        "preview": "Problem Description Goes Here",
         "samples": [
           {
             "input": "",
