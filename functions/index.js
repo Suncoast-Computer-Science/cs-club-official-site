@@ -122,7 +122,7 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
   res.send(testcaseResults) // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
 })
 
-app.post('/test/', async (req, res) => {
+app.get('/test/', async (req, res) => {
   const { submission, language, stdin } = req.body
 
   const result = await axios({
