@@ -13,3 +13,7 @@ export const gradeSubmission = async (submission, language, competitionId, probl
   })
   return res.data
 }
+
+export const getLastSubmission = async (submission, language, competitionId, problemId, userId) => {
+  const res = await axios.get(process.env.REACT_APP_FIREBASE_FUNCTION_ENDPOINT + `/submission/${competitionId}/${problemId}/${userId}`)
+}
