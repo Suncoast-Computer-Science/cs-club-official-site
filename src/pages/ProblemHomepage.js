@@ -31,17 +31,14 @@ export default function ProblemHomepage() {
   const onTestSubmit = async (e) => {
     e.preventDefault()
     if (!isProcessing) {
-      // setIsProcessing(true)
-      console.log(userCode, languageId, sampleInputRef.current.value)
+      setIsProcessing(true)
       const response = await testSubmission(userCode, languageId, sampleInputRef.current.value)
       if (response.status.description === 'Accepted') {
         setTestResponse(response.stdout)
-        setIsProcessing(false)
       } else {
-        setTestResponse("ERROR") // Do more stuff if there is an issue
-        console.log(response)
+        setTestResponse(response.status.description) // Do more stuff if there is an issue
       }
-      console.log(response)
+      setIsProcessing(false)
     }
   }
 
@@ -89,17 +86,23 @@ export default function ProblemHomepage() {
         value={userCode}
         onChange={(e) => setUserCode(e)}
       />
-      <form>
-        <p>Sample Input: </p>
-        <textarea ref={sampleInputRef}></textarea>
-        <textarea value={testResponse} disabled></textarea>
-        <button onClick={onTestSubmit}>Try Sample</button>
-        {currentUser ?
-          <button onClick={onGradeSubmit}>Submit for Grading</button>
+
+      {
+        isProcessing ?
+          "processing your request! If you're submitting a problem feel free to close this page and come back later"
           :
-          <button disabled> Sign in to Submit! </button>
-        }
-      </form>
+          < form >
+            <p>Sample Input: </p>
+            <textarea ref={sampleInputRef}></textarea>
+            <textarea value={testResponse} disabled></textarea>
+            <button onClick={onTestSubmit}>Try Sample</button>
+            {currentUser ?
+              <button onClick={onGradeSubmit}>Submit for Grading</button>
+              :
+              <button disabled> Sign in to Submit! </button>
+            }
+          </form>
+      }
     </>
   )
 }
