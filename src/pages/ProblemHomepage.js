@@ -67,51 +67,90 @@ export default function ProblemHomepage() {
       {
         problemData ?
           <>
-            {JSON.stringify(problemData)}
+            <div className="container-fluid bg-light text-dark p-2" >
+              <div class="container bg-light p-4">
+                <h1 class="display-4">{problemData.name}</h1>
+                <p>{problemData.preview}</p>
+              </div>
+            </div>
           </>
           :
           <>
             Loading
           </>
       }
-      <form>
-        <label>
-          Pick Your language
-          <select value={languageId} onChange={(e) => setLanguageId(e.target.value)}>
-            <option selected value="71">Python</option>
-            <option selected value="76">C++</option>
-            <option selected value="50">C</option>
-            <option selected value="62">Java</option>
-          </select>
-        </label>
-      </form>
-      <MonacoEditor
-        width="800"
-        height="600"
-        language="javascript"
-        theme="vs-dark"
-        value={`console.log('bruh')`}
-        language='javascript'
-        value={userCode}
-        onChange={(e) => setUserCode(e)}
-      />
+      <div class="container-fluid p-4">
+        <div class="row">
+          <div class="overflow-auto col-4">
+            {problemData ?
+              <>
+                <h2>Problem Statement</h2>
+                <p>{problemData.statement}</p>
 
-      {
-        isProcessing ?
-          "processing your request! If you're submitting a problem feel free to close this page and come back later"
-          :
-          < form >
-            <p>Sample Input: </p>
-            <textarea ref={sampleInputRef}></textarea>
-            <textarea value={testResponse} disabled></textarea>
-            <button onClick={onTestSubmit}>Try Sample</button>
-            {currentUser ?
-              <button onClick={onGradeSubmit}>Submit for Grading</button>
+                <h2>Input</h2>
+                <p>{problemData.input}</p>
+
+                <h2>Output</h2>
+                <p>{problemData.output}</p>
+
+                {/*<p>{JSON.stringify(problemData)}</p> will show you everything available*/}
+                <h3>Samples</h3>
+                {problemData.samples.map(({ input, output }, i) =>
+                  <>
+                    <div class="card">
+                      <h5 class="card-header">Sample #{i + 1}:</h5>
+                      <div class="card-body">
+                        <p>Input: </p>
+                        {input ?
+                          <p class="card-text bg-dark text-light p-1">{input}</p>
+                          :
+                          <p><i>No Input!</i></p>
+                        }
+                        <p>Output: </p>
+                        <p class="card-text bg-dark text-light p-1">{output}</p>
+                      </div>
+                    </div>
+                  </>)}
+
+              </>
               :
-              <button disabled> Sign in to Submit! </button>
+              <> </>
             }
-          </form>
-      }
+
+          </div>
+          <div class="overflow-auto col-8">
+            <MonacoEditor
+              width="100%"
+              height="600"
+              theme="vs-dark"
+              value={`console.log('bruh')`}
+              language='javascript'
+              value={userCode}
+              onChange={(e) => setUserCode(e)}
+            />
+            <form>
+              <label>
+                Pick Your language
+                <select value={languageId} onChange={(e) => setLanguageId(e.target.value)}>
+                  <option selected value="71">Python</option>
+                  <option selected value="76">C++</option>
+                  <option selected value="50">C</option>
+                  <option selected value="62">Java</option>
+                </select>
+              </label>
+              <p>Sample Input: </p>
+              <textarea ref={sampleInputRef}></textarea>
+              <textarea value={testResponse} disabled></textarea>
+              <button onClick={onTestSubmit}>Try Sample</button>
+              {currentUser ?
+                <button onClick={onGradeSubmit}>Submit for Grading</button>
+                :
+                <button disabled> Sign in to Submit! </button>
+              }
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
