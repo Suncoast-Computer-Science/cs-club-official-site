@@ -4,7 +4,7 @@ import { useAuth } from '../api/AuthContext'
 import MonacoEditor from 'react-monaco-editor';
 
 import Header from '../components/Header'
-import { testSubmission, gradeSubmission } from '../api/BackendRequests'
+import { testSubmission, gradeSubmission, getLastSubmission } from '../api/BackendRequests'
 
 export default function ProblemHomepage() {
   const { db, currentUser } = useAuth()
@@ -20,13 +20,21 @@ export default function ProblemHomepage() {
 
   const [isProcessing, setIsProcessing] = useState(false) // TODO: Render differently if currently processing a request
 
-  useEffect(() => {
+  useEffect(async () => {
     // Get all the competition and problem data 
-    db.ref(`problems/${problemId}/data`).once('value').then((snapshot) => setProblemData(snapshot.val()))
-    db.ref(`submission/${competitionId}/${problemId}/${currentUser}`).once('value').then((snapshot => setUserProblemData(snapshot.val())))
+    const problemDataRequest = await db.ref(`problems/${problemId}/data`).once('value')
+    setProblemData(problemDataRequest.val())
     // console.log(problemData)  // Check this line for Competition Details
     // console.log(userProblemData)  // Check this line to find a user's test cases
   }, [])
+
+  useEffect(async () => {
+    if (currentUser?.uid) {
+      const lastSubmissionRequest = await getLastSubmission(competitionId, problemId, currentUser.uid)
+      setTestResponse(lastSubmissionRequest.data) // Gets you the last submission results in an array if there is a submission, or 'No Last Submission Found' if there is no last submission
+    }
+
+  }, [problemData])
 
   const onTestSubmit = async (e) => {
     e.preventDefault()
@@ -49,6 +57,7 @@ export default function ProblemHomepage() {
       // console.log(currentUser)
       const response = await gradeSubmission(userCode, languageId, competitionId, problemId, currentUser.uid) // Returns an array with all the test case Results
       setTestResponse(response.toString()) // Do something else
+      setIsProcessing(false)
     }
   }
 

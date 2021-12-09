@@ -9,7 +9,6 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(cors())
 
-app.use(express.json())
 
 const admin = require('firebase-admin');
 
