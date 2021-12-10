@@ -71,11 +71,10 @@ export default function ProblemHomepage() {
     e.preventDefault();
     if (!isProcessing) {
       setIsProcessing(true)
-      // console.log(currentUser)
       const response = await gradeSubmission(userCode, languageId, competitionId, problemId, currentUser.uid) // Returns an array with all the test case Results
-      // setTestResponse(response.toString()) // Do something else
-      setLastSubmissionData(lastSubmissionData.data)
+      setLastSubmissionData(response.data)
       setIsProcessing(false)
+      handleShow(e)
     }
   }
 
@@ -164,7 +163,7 @@ export default function ProblemHomepage() {
                 </div>
                 <div className="col-sm-4">
                   <p className="col-form-label col-sm-2">Output: </p>
-                  <textarea className="form-control" style={{ height: "100%" }} value={testResponse} readonly></textarea>
+                  <textarea className="form-control" style={{ height: "100%" }} value={testResponse} readOnly></textarea>
                 </div>
                 <div className="col-sm-4">
                   <div className="col-form-label">
