@@ -3,13 +3,14 @@ import { Button } from 'react-bootstrap'
 import { useAuth } from "../api/AuthContext"
 
 export default function SigninButton() {
-  const { currentUser } = useAuth();
+  const { currentUser, signout } = useAuth();
 
   return (
     <Button
-      href={currentUser ? "/settings" : "/signin"}
+      href="/signin"
+      onClick={() => signout()}
     >
-      {currentUser ? "Account" : "Sign In"}
+      {currentUser ? "Sign Out" : "Sign In"}
     </Button>
   )
 }
