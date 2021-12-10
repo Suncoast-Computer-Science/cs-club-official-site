@@ -14,16 +14,20 @@
   "problems": {
     "hello-world": {
       "data": {
-        "name": "Hello World",
+        "name": "Hello CS Club!",
         "author": "Rohit Dasgupta",
-        "statement": "Print 'Hello World!' to standard output",
-        "input": "No Input",
-        "output": "Print 'Hello World!' to standard output",
+        "statement": "Rohit has a very busy job greeting all the contestants who have shown up to the Suncoast December 14th Competition. Help him gree these users by sending a custom message saying 'Hello, ___!' where he he can customize the name",
+        "input": "Take in a single string",
+        "output": "Print 'Hello, [Insert Name here]!' to standard output, where you replace [Insert Name here] with the string you received from standard input",
         "preview": "Problem Description Goes Here",
         "samples": [
           {
-            "input": "",
-            "output": "Hello World!"
+            "input": "Rohit",
+            "output": "Hello, Rohit!"
+          },
+          {
+            "input": "CS Club",
+            "output": "Hello, CS Club!"
           }
         ]
       },
@@ -69,31 +73,6 @@
           "output": "Hello, Bruh2!\n"
         }
       ]
-    }
-  },
-  "submissions": {
-    "competition-id": {
-      "hello-world": {
-        "Q6U7byarTnfXnUldsWt5vXGNl6t1": [
-          {
-            "time": 0,
-            "testcases": [
-              "WRONG",
-              "TIME LIMIT EXCEEDED",
-              "CORRECT",
-              "RUNTIME ERROR",
-              "CORRECT",
-              "WRONG",
-              "TIME LIMIT EXCEEDED",
-              "CORRECT",
-              "RUNTIME ERROR",
-              "CORRECT"
-            ],
-            "language": 70,
-            "submission": "print(100)\n"
-          }
-        ]
-      }
     }
   }
 }
