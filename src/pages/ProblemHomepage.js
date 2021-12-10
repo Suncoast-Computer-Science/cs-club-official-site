@@ -8,6 +8,11 @@ import Header from '../components/Header'
 import { testSubmission, gradeSubmission, getLastSubmission } from '../api/BackendRequests'
 
 import ProblemHomepageHeader from '../components/ProblemHomepageHeader'
+import SubmissionResultModal from '../components/SubmissionResultModal'
+import Editor from '../components/Editor'
+import ProblemSubmissionButtons from '../components/ProblemSubmissionButtons.js'
+import ProblemData from '../components/ProblemData'
+import ProblemLanguageSelector from '../components/ProblemLanguageSelector'
 
 export default function ProblemHomepage() {
   const { db, currentUser } = useAuth()
@@ -84,154 +89,22 @@ export default function ProblemHomepage() {
       <ProblemHomepageHeader problemData={problemData} />
       <div class="container-fluid p-4" >
         <div class="row">
-          <div class="col-4" style={{ height: "100%", overflowY: "hidden" }}>
-            {problemData ?
-              <>
-                <h2>Problem Statement</h2>
-                <p>{problemData.statement}</p>
-
-                <h2>Input</h2>
-                <p>{problemData.input}</p>
-
-                <h2>Output</h2>
-                <p>{problemData.output}</p>
-
-                {/*<p>{JSON.stringify(problemData)}</p> will show you everything available*/}
-                <h3>Samples</h3>
-                {problemData.samples.map(({ input, output, explanation }, i) =>
-                  <>
-                    <div class="card mb-2">
-                      <h5 class="card-header">Sample #{i + 1}:</h5>
-                      <div class="card-body container">
-                        <div class="row">
-                          <div class="col">
-                            <p>Input: </p>
-                            {input ?
-                              <p class="card-text bg-dark text-light p-1">{input}</p>
-                              :
-                              <p><i>No Input!</i></p>
-                            }
-                          </div>
-                          <div class="col">
-                            <p>Output: </p>
-                            <p class="card-text bg-dark text-light p-1">{output}</p>
-                          </div>
-                        </div>
-                      </div>
-                      {explanation ?
-                        <>
-                          <p>Explanation: {explanation}</p>
-                        </> : <> </>}
-                    </div>
-                  </>)}
-
-              </>
-              :
-              <> </>
-            }
-
-          </div>
-          <div className=" col-8">
-            <form>
-              <div className="form-group row">
-                <label className="col-sm-1 offset-sm-9 col-form-label">
-                  Language:
-                </label>
-                <div className="col-sm-2">
-                  <select className="form-control" value={languageId} onChange={(e) => setLanguageId(e.target.value)}>
-                    <option selected value="71">Python</option>
-                    <option selected value="76">C++</option>
-                    <option selected value="50">C</option>
-                    <option selected value="62">Java</option>
-                  </select>
-                </div>
-              </div>
-            </form>
-            <MonacoEditor
-              width="100%"
-              height="600"
-              theme="vs-dark"
-              language='javascript'
-              value={userCode}
-              onChange={(e) => setUserCode(e)}
+          <ProblemData problemData={problemData} />
+          <div className="col-8" style={{ overflow: "hidden" }} >
+            <ProblemLanguageSelector languageId={languageId} setLanguageId={setLanguageId} />
+            <Editor value={userCode} setUserCode={setUserCode} />
+            <ProblemSubmissionButtons
+              sampleInputRef={sampleInputRef}
+              testResponse={testResponse}
+              onTestSubmit={onTestSubmit}
+              onGradeSubmit={onGradeSubmit}
+              handleShow={handleShow}
+              isProcessing={isProcessing}
             />
-            {!isProcessing ?
-              <form className="form-group row" style={{ overflowY: "hidden" }}>
-                <div className="col-sm-4">
-                  <p className="col-form-label">Test Input: </p>
-                  <textarea className="form-control" style={{ height: "100%" }} ref={sampleInputRef}></textarea>
-                </div>
-                <div className="col-sm-4">
-                  <p className="col-form-label col-sm-2">Output: </p>
-                  <textarea className="form-control" style={{ height: "100%" }} value={testResponse} readOnly></textarea>
-                </div>
-                <div className="col-sm-4">
-                  <div className="col-form-label">
-                    &nbsp;
-                  </div>
-                  <div className="py-1">
-                    <button className="btn btn-secondary" onClick={onTestSubmit}>Try Sample</button>
-                  </div>
-                  <div className="py-1">
-                    {currentUser ?
-                      <button className="btn btn-primary" onClick={onGradeSubmit}>Submit for Grading</button>
-                      :
-                      <button className="btn btn-primary" disabled> Sign in to Submit! </button>
-                    }
-                  </div>
-                  <div className="py-1">
-                    <button
-                      className="btn btn-success"
-                      onClick={handleShow}
-                    >
-                      Open Submission Results
-                    </button>
-                  </div>
-                </div>
-              </form>
-              :
-              <p> loading </p>
-            }
           </div>
         </div>
       </div>
-      <Modal show={showSubmissionResults} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Last Submission Results:</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {currentUser?.uid && lastSubmissionData ?
-            <>
-              {typeof (lastSubmissionData) == 'string' ?
-                <>No past submissions!</>
-                :
-                <>
-                  <thead>
-                    <tr>
-                      {lastSubmissionData.map((_, index) => (
-                        <th key={index}>{index}</th>
-                      ))} </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      {lastSubmissionData.map((result, index) => (
-                        <td key={index}>{result}</td>
-                      ))}
-                    </tr>
-                  </tbody>
-                </>
-              }
-            </>
-            :
-            <>Sign in to view Submission Results!</>
-          }
-        </Modal.Body>
-        <Modal.Footer>
-          <button className="btn btn-secondary" onClick={handleClose}>
-            Close
-          </button>
-        </Modal.Footer>
-      </Modal>
+      <SubmissionResultModal show={showSubmissionResults} handleClose={handleClose} lastSubmissionData={lastSubmissionData} />
     </>
   )
 }

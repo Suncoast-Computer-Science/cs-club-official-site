@@ -1,13 +1,16 @@
+import MonacoEditor from 'react-monaco-editor';
 import Editor from "@monaco-editor/react"
 
-export default function({ language }) {
-  language = language || "javascript"
-  console.log("bruh")
+export default function({ language, value, setUserCode }) {
+  language = language || "python"
   return (
-    <Editor
-      height='80vh'
-      defaultLanguage={language}
-      defaultValue="// Test Comment"
+    <MonacoEditor
+      width="100%"
+      height="600"
+      theme="vs-dark"
+      language={language}
+      value={value}
+      onChange={(e) => setUserCode(e)}
     />
   )
 }
