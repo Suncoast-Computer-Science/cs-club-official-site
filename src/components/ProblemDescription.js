@@ -23,14 +23,14 @@ export default function({ problemData }) {
                     <div class="col">
                       <p>Input: </p>
                       {input ?
-                        <p class="card-text bg-dark text-light p-1">{input}</p>
+                        <p class="card-text bg-dark text-light p-1" style={{ whiteSpace: "pre-line" }}>{input}</p>
                         :
                         <p><i>No Input!</i></p>
                       }
                     </div>
                     <div class="col">
                       <p>Output: </p>
-                      <p class="card-text bg-dark text-light p-1">{output}</p>
+                      <p class="card-text bg-dark text-light p-1" style={{ whiteSpace: "pre-line" }}>{output}</p>
                     </div>
                   </div>
                 </div>

@@ -11,7 +11,7 @@ import ProblemHomepageHeader from '../components/ProblemHomepageHeader'
 import SubmissionResultModal from '../components/SubmissionResultModal'
 import Editor from '../components/Editor'
 import ProblemSubmissionButtons from '../components/ProblemSubmissionButtons.js'
-import ProblemData from '../components/ProblemData'
+import ProblemDescription from '../components/ProblemDescription'
 import ProblemLanguageSelector from '../components/ProblemLanguageSelector'
 
 export default function ProblemHomepage() {
@@ -89,7 +89,7 @@ export default function ProblemHomepage() {
       <ProblemHomepageHeader problemData={problemData} />
       <div class="container-fluid p-4" >
         <div class="row">
-          <ProblemData problemData={problemData} />
+          <ProblemDescription problemData={problemData} />
           <div className="col-8" style={{ overflow: "hidden" }} >
             <ProblemLanguageSelector languageId={languageId} setLanguageId={setLanguageId} />
             <Editor value={userCode} setUserCode={setUserCode} />
