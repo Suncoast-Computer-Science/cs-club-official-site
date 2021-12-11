@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 
 import ProblemCard from '../components/ProblemCard'
 import Header from '../components/Header'
+import CompetitionHomepageHeader from '../components/CompetitionHomepageHeader'
 
 export default function CompetitionHomepage() {
   const { db } = useAuth();
@@ -17,6 +18,7 @@ export default function CompetitionHomepage() {
       const snapshot = await db.ref('competitions/' + id).once("value")
       let data = snapshot.val()
       setCompetitionData(data)
+      console.log(data)
 
       let problems = []
       for (let problem of data.problems) {
@@ -42,6 +44,7 @@ export default function CompetitionHomepage() {
   return (
     <>
       <Header />
+      <CompetitionHomepageHeader competitionData={competitionData} />
       {problemData.map((problem, index) => <ProblemCard
         competitionId={id}
         problemId={problem.id}
