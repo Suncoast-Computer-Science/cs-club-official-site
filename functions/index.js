@@ -118,9 +118,14 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
   // TODO: make it so that each test case will update independently 
   let promises = testcases.map(({ input, output }) => validateTestcase(submission, language, input, output));
   const results = await Promise.all(promises)
-  const testcaseResults = results.map(result => result.data.status.description)
 
-  newSubmission = { ...newSubmission, testcases: testcaseResults }
+  let countAccepted = 0
+  const testcaseResults = results.map(result => {
+    if (result.data.status.description == "Accepted") countAccepted++
+    return result.data.status.description
+  })
+
+  newSubmission = { ...newSubmission, testcases: testcaseResults, passedAll: (countAccepted == results.length) }
   await admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).child(index).set(newSubmission)
 
   // res.send("tescase sent!")
