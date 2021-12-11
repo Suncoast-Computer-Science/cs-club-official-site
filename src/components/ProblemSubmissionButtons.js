@@ -1,6 +1,6 @@
 import { useAuth } from '../api/AuthContext'
 
-export default function ProblemSubmissionButtons({ sampleInputRef, testResponse, onTestSubmit, onGradeSubmit, handleShow, isProcessing }) {
+export default function ProblemSubmissionButtons({ sampleInputRef, testResponse, onTestSubmit, onGradeSubmit, handleShow, isProcessing, passedAll }) {
   const { currentUser } = useAuth()
   if (isProcessing) {
     return (
@@ -24,21 +24,34 @@ export default function ProblemSubmissionButtons({ sampleInputRef, testResponse,
           <div className="py-1">
             <button className="btn btn-secondary" onClick={onTestSubmit}>Try Sample</button>
           </div>
-          <div className="py-1">
-            {currentUser ?
-              <button className="btn btn-primary" onClick={onGradeSubmit}>Submit for Grading</button>
-              :
-              <button className="btn btn-primary" disabled> Sign in to Submit! </button>
-            }
-          </div>
-          <div className="py-1">
-            <button
-              className="btn btn-success"
-              onClick={handleShow}
-            >
-              Open Submission Results
-            </button>
-          </div>
+          {passedAll ?
+            <>
+              <button className="btn btn-success" >
+                Passed!
+              </button>
+
+            </>
+            :
+            <>
+
+              <div className="py-1">
+                {currentUser ?
+                  <button className="btn btn-primary" onClick={onGradeSubmit}>Submit for Grading</button>
+                  :
+                  <button className="btn btn-primary" disabled> Sign in to Submit! </button>
+                }
+              </div>
+              <div className="py-1">
+                <button
+                  className="btn btn-success"
+                  onClick={handleShow}
+                >
+                  Open Submission Results
+                </button>
+              </div>
+            </>
+
+          }
         </div>
       </form>
     )

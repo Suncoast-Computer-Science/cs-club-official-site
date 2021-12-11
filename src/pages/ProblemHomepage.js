@@ -24,7 +24,7 @@ export default function ProblemHomepage() {
   const [userCode, setUserCode] = useState("print('bruh')")
   const [lastSubmissionData, setLastSubmissionData] = useState(null)
   const [showSubmissionResults, setShowSubmissionResults] = useState(false)
-
+  const [passedAll, setPassedAll] = useState(false)
   const handleClose = () => setShowSubmissionResults(false)
   const handleShow = async (e) => {
     e.preventDefault()
@@ -35,20 +35,44 @@ export default function ProblemHomepage() {
     }
   }
 
+  const updatePassedAllLastSubmission = () => {
+    if (currentUser && lastSubmissionData && lastSubmissionData != "error") {
+      let allTrue = true
+      for (let result of lastSubmissionData) {
+        if (result != "Accepted") {
+          allTrue = false
+          break
+        }
+      }
+      setPassedAll(allTrue)
+      return
+    }
+    setPassedAll(false)
+  }
+
   const [isProcessing, setIsProcessing] = useState(false) // TODO: Render differently if currently processing a request
 
   useEffect(() => {
-    const dataRequests = async () => {
-      // Get all the competition and problem data 
+    const dataRequest = async () => {
       const problemDataRequest = await db.ref(`problems/${problemId}/data`).once('value')
       setProblemData(problemDataRequest.val())
-      if (currentUser?.uid) {
+    }
+    dataRequest()
+  }, [])
+
+  useEffect(() => {
+    const dataRequest = async () => {
+      if (currentUser) {
         const lastSubmissionRequest = await getLastSubmission(competitionId, problemId, currentUser.uid)
         setLastSubmissionData(lastSubmissionRequest.data)
       }
     }
-    dataRequests()
-  }, [])
+    dataRequest()
+  }, [problemData])
+
+  useEffect(() => {
+    updatePassedAllLastSubmission()
+  }, [lastSubmissionData])
 
 
   const onTestSubmit = async (e) => {
@@ -93,6 +117,7 @@ export default function ProblemHomepage() {
               onGradeSubmit={onGradeSubmit}
               handleShow={handleShow}
               isProcessing={isProcessing}
+              passedAll={passedAll}
             />
           </div>
         </div>
