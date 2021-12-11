@@ -9,15 +9,17 @@ export default function CompetitionHomepage() {
   const { db } = useAuth();
   const { id } = useParams()
   const [problemData, setProblemData] = useState([]);
+  const [competitionData, setCompetitionData] = useState(null)
 
   useEffect(() => {
     const onMount = async () => {
 
-      const snapshot = await db.ref('competitions/' + id + '/problems').once("value")
+      const snapshot = await db.ref('competitions/' + id).once("value")
       let data = snapshot.val()
+      setCompetitionData(data)
 
       let problems = []
-      for (let problem of data) {
+      for (let problem of data.problems) {
         const snapshot = await db.ref('problems/' + problem + '/data').once("value")
         problems.push({ ...snapshot.val(), id: problem })
       }
