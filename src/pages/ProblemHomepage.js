@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../api/AuthContext'
-import { Modal, Table } from 'react-bootstrap';
-import MonacoEditor from 'react-monaco-editor';
 
 import Header from '../components/Header'
 import { testSubmission, gradeSubmission, getLastSubmission } from '../api/BackendRequests'
@@ -27,36 +25,31 @@ export default function ProblemHomepage() {
   const [lastSubmissionData, setLastSubmissionData] = useState(null)
   const [showSubmissionResults, setShowSubmissionResults] = useState(false)
 
-
   const handleClose = () => setShowSubmissionResults(false)
   const handleShow = async (e) => {
     e.preventDefault()
     setShowSubmissionResults(true)
     if (currentUser?.uid) {
       const lastSubmissionRequest = await getLastSubmission(competitionId, problemId, currentUser.uid)
-      // setTestResponse(lastSubmissionRequest.data) // Gets you the last submission results in an array if there is a submission, or 'No Last Submission Found' if there is no last submission
       setLastSubmissionData(lastSubmissionRequest.data)
     }
   }
 
   const [isProcessing, setIsProcessing] = useState(false) // TODO: Render differently if currently processing a request
 
-  useEffect(async () => {
-    // Get all the competition and problem data 
-    const problemDataRequest = await db.ref(`problems/${problemId}/data`).once('value')
-    setProblemData(problemDataRequest.val())
-    // console.log(problemData)  // Check this line for Competition Details
-    // console.log(userProblemData)  // Check this line to find a user's test cases
+  useEffect(() => {
+    const dataRequests = async () => {
+      // Get all the competition and problem data 
+      const problemDataRequest = await db.ref(`problems/${problemId}/data`).once('value')
+      setProblemData(problemDataRequest.val())
+      if (currentUser?.uid) {
+        const lastSubmissionRequest = await getLastSubmission(competitionId, problemId, currentUser.uid)
+        setLastSubmissionData(lastSubmissionRequest.data)
+      }
+    }
+    dataRequests()
   }, [])
 
-  useEffect(async () => {
-    if (currentUser?.uid) {
-      const lastSubmissionRequest = await getLastSubmission(competitionId, problemId, currentUser.uid)
-      // setTestResponse(lastSubmissionRequest.data) // Gets you the last submission results in an array if there is a submission, or 'No Last Submission Found' if there is no last submission
-      setLastSubmissionData(lastSubmissionRequest.data)
-    }
-
-  }, [problemData])
 
   const onTestSubmit = async (e) => {
     e.preventDefault()
