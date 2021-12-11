@@ -26,7 +26,7 @@ export default function ProblemSubmissionButtons({ sampleInputRef, testResponse,
           </div>
           {passedAll ?
             <>
-              <button className="btn btn-success" >
+              <button className="btn btn-success" onClick={handleShow} >
                 Passed!
               </button>
 

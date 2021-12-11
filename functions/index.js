@@ -45,8 +45,7 @@ admin.initializeApp({
 const getUserSubmissionTestcases = async (competitionId, problemId, userId) => {
   const snapshot = await admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).once('value')
   try {
-    const testcases = snapshot.val()[snapshot.val().length - 1].testcases
-    return testcases // We can send all testcases and not even check if they're done because the post request can unpdate the testcases as pending
+    return snapshot.val()[snapshot.val().length - 1] // We can try this and if it fails we can assume there is no other submission
   } catch {
     return "error"
   }
@@ -90,7 +89,7 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
   const userSubmissionResults = await getUserSubmissionTestcases(competitionId, problemId, userId);
   if (userSubmissionResults != 'error') {
     let foundPending = false
-    for (let tc of userSubmissionResults) {
+    for (let tc of userSubmissionResults.testcases) {
       if (tc == "PENDING") {
         foundPending = true
       }
@@ -129,7 +128,7 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
   await admin.database().ref(`submissions/${competitionId}/${problemId}/${userId}`).child(index).set(newSubmission)
 
   // res.send("tescase sent!")
-  res.send(testcaseResults) // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
+  res.send(newSubmission) // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
 })
 
 app.post('/test/', (req, res) => {

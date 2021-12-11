@@ -38,7 +38,7 @@ export default function ProblemHomepage() {
   const updatePassedAllLastSubmission = () => {
     if (currentUser && lastSubmissionData && lastSubmissionData != "error") {
       let allTrue = true
-      for (let result of lastSubmissionData) {
+      for (let result of lastSubmissionData.testcases) {
         if (result != "Accepted") {
           allTrue = false
           break

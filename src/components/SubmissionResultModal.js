@@ -18,17 +18,21 @@ export default function SubmissionResultsModal({ show, handleClose, lastSubmissi
               <>
                 <thead>
                   <tr>
-                    {lastSubmissionData.map((_, index) => (
+                    {lastSubmissionData.testcases.map((_, index) => (
                       <th key={index}>{index}</th>
                     ))} </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    {lastSubmissionData.map((result, index) => (
+                    {lastSubmissionData.testcases.map((result, index) => (
                       <td key={index}>{result}</td>
                     ))}
                   </tr>
                 </tbody>
+                <p>
+                  <br />
+                  Submitted: {Date(lastSubmissionData.time)}
+                </p>
               </>
             }
           </>
