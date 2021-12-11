@@ -8,35 +8,39 @@ import Header from '../components/Header'
 export default function CompetitionHomepage() {
   const { db } = useAuth();
   const { id } = useParams()
-  const [competitionData, setCompetitionData] = useState();
   const [problemData, setProblemData] = useState([]);
 
   useEffect(() => {
-    db.ref('competitions/' + id).once("value", snapshot => {
+    const onMount = async () => {
+
+      const snapshot = await db.ref('competitions/' + id + '/problems').once("value")
       let data = snapshot.val()
-      setCompetitionData(data)
-    })
+
+      let problems = []
+      for (let problem of data) {
+        const snapshot = await db.ref('problems/' + problem + '/data').once("value")
+        problems.push({ ...snapshot.val(), id: problem })
+      }
+      setProblemData(problems)
+    }
+    onMount()
+
+
   }, [])
 
-  useEffect(() => {
-    if (!competitionData) return; // Ensure that this only runs once the data from the competition comes 
+  // useEffect(() => {
+  //   if (!competitionData) return; // Ensure that this only runs once the data from the competition comes 
+  //   const getCompetitionData = async () => {
 
-    console.log(competitionData.problems)
-    let problems = []
-    for (let problem of competitionData.problems) {
-      db.ref('problems/' + problem + '/data').once("value", snapshot => {
-        problems.push({ ...snapshot.val(), id: problem })
-      }).then(() => {
-        console.log(problems)
-        setProblemData(problems)
-      })
-    }
-  }, [competitionData])
+  //     console.log(competitionData.problems)
+  //   }
+  //   getCompetitionData()
+  // }, [competitionData])
 
   return (
     <>
       <Header />
-      {problemData.map((problem) => <ProblemCard
+      {problemData.map((problem, index) => <ProblemCard
         competitionId={id}
         problemId={problem.id}
         problemAuthor={problem.author}
@@ -44,6 +48,7 @@ export default function CompetitionHomepage() {
         problemInput={problem.input}
         problemOutput={problem.output}
         problemPreview={problem.preview}
+        key={index}
       />)}
     </>
   )
