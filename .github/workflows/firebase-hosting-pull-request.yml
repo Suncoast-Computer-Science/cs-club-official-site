@@ -7,6 +7,7 @@ jobs:
   build_and_preview:
     env:
       CI: false
+      PROD_ENV_FILE: ${{ secrets.COMPETITION_SITE_PROD_ENV_FILE }}
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:

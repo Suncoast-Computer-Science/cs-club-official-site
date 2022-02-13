@@ -10,6 +10,7 @@ jobs:
   build_and_deploy:
     env:
       CI: false
+      PROD_ENV_FILE: ${{ secrets.COMPETITION_SITE_PROD_ENV_FILE }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
