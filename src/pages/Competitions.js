@@ -18,7 +18,6 @@ export default function Competitions() {
         competitions.push(obj)
       })
       setData(competitions)
-      console.log(competitions)
     }), []
   ) // Get data only once
 
