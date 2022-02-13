@@ -8,6 +8,8 @@ jobs:
     env:
       CI: false
       PROD_ENV_FILE: ${{ secrets.COMPETITION_SITE_PROD_ENV_FILE }}
+    run: |
+      [ "$YOUR_ENVIRONMENT" = prod ] && echo $PROD_ENV_FILE | base64 --decode > .env
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
