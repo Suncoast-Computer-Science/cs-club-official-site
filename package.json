@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.24.0",
+    "axios": "^0.26.0",
     "bootstrap": "5",
     "firebase": "^9.6.6",
     "monaco-editor": "^0.31.1",
@@ -20,7 +20,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_ENV=development && react-scripts start",
+    "deploy": "cd ./functions && npm run deploy",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
