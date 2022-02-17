@@ -1,72 +1,60 @@
-import { useState, useEffect, createContext, useContext } from 'react'
+import { useState, useEffect, createContext, useContext } from "react";
+import { auth, db } from "./firebase";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 
-import { auth, provider } from './firebase'
+const provider = new GoogleAuthProvider();
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
-const useAuth = () => useContext(AuthContext)
+const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState()
-  const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
 
-  function register(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
-    // .then((auth) => {
-    // if (auth.user) {
-    //   auth.user.updateProfile({
-    //     displayName: username
-    //   })
-    // }
-    // })
+  function register() {
+    return signInWithPopup(auth, provider);
   }
 
-  function signin(email, password) {
-    return auth.signInWithEmailAndPassword(email, password)
+  function signin() {
+    return signInWithPopup(auth, provider);
   }
-
 
   function signout() {
-    return auth.signOut()
-  }
-
-  function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
+    return signOut(auth);
   }
 
   function updateEmail(email) {
-    return currentUser.updateEmail(email)
+    return currentUser.updateEmail(email);
   }
-
-  function updatePassword(password) {
-    return currentUser.updatePassword(password)
-  }
-
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setLoading(false)
-      setCurrentUser(user)
-    })
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setLoading(false);
+      setCurrentUser(user);
+    });
 
-    return unsubscribe
-  }, [])
+    return unsubscribe;
+  }, []);
 
   const value = {
     currentUser,
     register,
     signin,
     signout,
-    resetPassword,
     updateEmail,
-    updatePassword,
-    db: auth.app.database()
-  }
+    db,
+  };
 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
-  )
-}
-export { AuthProvider, useAuth }
+  );
+};
+export { AuthProvider, useAuth };
