@@ -1,7 +1,7 @@
-export default function({ problemData }) {
+export default function ({ problemData }) {
   return (
     <div class="col-4" style={{ height: "100%", overflowY: "hidden" }}>
-      {problemData ?
+      {problemData ? (
         <>
           <h2>Problem Statement</h2>
           <p>{problemData.statement}</p>
@@ -14,7 +14,7 @@ export default function({ problemData }) {
 
           {/*<p>{JSON.stringify(problemData)}</p> will show you everything available*/}
           <h3>Samples</h3>
-          {problemData.samples.map(({ input, output, explanation }, i) =>
+          {problemData.samples.map(({ input, output, explanation }, i) => (
             <>
               <div class="card mb-2">
                 <h5 class="card-header">Sample #{i + 1}:</h5>
@@ -22,11 +22,13 @@ export default function({ problemData }) {
                   <div class="row">
                     <div class="col">
                       <p>Input: </p>
-                      {input ?
+                      {input ? (
                         <p class="card-text bg-dark text-light p-1">{input}</p>
-                        :
-                        <p><i>No Input!</i></p>
-                      }
+                      ) : (
+                        <p>
+                          <i>No Input!</i>
+                        </p>
+                      )}
                     </div>
                     <div class="col">
                       <p>Output: </p>
@@ -34,18 +36,20 @@ export default function({ problemData }) {
                     </div>
                   </div>
                 </div>
-                {explanation ?
+                {explanation ? (
                   <>
                     <p>Explanation: {explanation}</p>
-                  </> : <> </>}
+                  </>
+                ) : (
+                  <> </>
+                )}
               </div>
-            </>)}
-
+            </>
+          ))}
         </>
-        :
+      ) : (
         <> </>
-      }
-
+      )}
     </div>
-  )
+  );
 }

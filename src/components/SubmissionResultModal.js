@@ -1,26 +1,31 @@
-import { Modal, Table, Button } from 'react-bootstrap';
+import { Modal, Table, Button } from "react-bootstrap";
 
-import { useAuth } from '../api/AuthContext'
+import { useAuth } from "../api/AuthContext";
 
-export default function SubmissionResultsModal({ show, handleClose, lastSubmissionData }) {
-  const { currentUser } = useAuth()
+export default function SubmissionResultsModal({
+  show,
+  handleClose,
+  lastSubmissionData,
+}) {
+  const { currentUser } = useAuth();
   return (
     <Modal show={show} onHide={handleClose} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>Last Submission Results:</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {currentUser?.uid && lastSubmissionData ?
+        {currentUser?.uid && lastSubmissionData ? (
           <>
-            {typeof (lastSubmissionData) == 'string' ?
+            {typeof lastSubmissionData == "string" ? (
               <>No past submissions!</>
-              :
+            ) : (
               <>
                 <thead>
                   <tr>
                     {lastSubmissionData.testcases.map((_, index) => (
                       <th key={index}>{index}</th>
-                    ))} </tr>
+                    ))}{" "}
+                  </tr>
                 </thead>
                 <tbody>
                   <tr>
@@ -34,11 +39,11 @@ export default function SubmissionResultsModal({ show, handleClose, lastSubmissi
                   Submitted: {Date(lastSubmissionData.time)}
                 </p>
               </>
-            }
+            )}
           </>
-          :
+        ) : (
           <>Sign in to view Submission Results!</>
-        }
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" onClick={handleClose}>
@@ -46,5 +51,5 @@ export default function SubmissionResultsModal({ show, handleClose, lastSubmissi
         </Button>
       </Modal.Footer>
     </Modal>
-  )
+  );
 }

@@ -1,10 +1,9 @@
-import { Navbar, Container, Nav, Row } from 'react-bootstrap';
+import { Navbar, Container, Nav, Row } from "react-bootstrap";
 
-import SigninButton from '../components/SigninButton'
+import SigninButton from "../components/SigninButton";
 
 export default function Header() {
   return (
-
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand href="/">Suncoast CS Club</Navbar.Brand>
@@ -20,6 +19,5 @@ export default function Header() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-
-  )
+  );
 }

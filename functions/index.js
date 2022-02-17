@@ -194,4 +194,4 @@ app.post("/test/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-exports.api = functions.https.onRequest(app)
+exports.api = functions.https.onRequest(app);

@@ -6,9 +6,7 @@
       "start-date": 1638814670162,
       "end-date": 1640024330286,
       "in-person": true,
-      "problems": [
-        "hello-world"
-      ]
+      "problems": ["hello-world"]
     }
   },
   "problems": {

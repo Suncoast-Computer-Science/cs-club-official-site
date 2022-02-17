@@ -1,8 +1,8 @@
-import MonacoEditor from 'react-monaco-editor';
-import Editor from "@monaco-editor/react"
+import MonacoEditor from "react-monaco-editor";
+import Editor from "@monaco-editor/react";
 
-export default function({ language, value, setUserCode }) {
-  language = language || "python"
+export default function ({ language, value, setUserCode }) {
+  language = language || "python";
   return (
     <MonacoEditor
       width="100%"
@@ -12,7 +12,5 @@ export default function({ language, value, setUserCode }) {
       value={value}
       onChange={(e) => setUserCode(e)}
     />
-  )
+  );
 }
-
-

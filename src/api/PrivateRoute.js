@@ -1,13 +1,13 @@
-import { Route, Navigate, Outlet } from 'react-router-dom';
+import { Route, Navigate, Outlet } from "react-router-dom";
 
-import { useAuth } from '../api/AuthContext';
+import { useAuth } from "../api/AuthContext";
 
 // Must have an account to enter
 export default function PrivateRoute({ children, ...rest }) {
-  let {currentUser} = useAuth();
+  let { currentUser } = useAuth();
   if (!!currentUser) {
-    return <Outlet />
+    return <Outlet />;
   } else {
-    return <Navigate to="/signin" />
+    return <Navigate to="/signin" />;
   }
 }
