@@ -7,8 +7,8 @@ export default function SigninButton() {
 
   return (
     <Button
-      href="/signin"
-      onClick={() => signout()}
+      href={currentUser ? "/settings" : "/signin"}
+      onClick={signout}
     >
       {currentUser ? "Sign Out" : "Sign In"}
     </Button>
