@@ -6,7 +6,10 @@ export default function SigninButton() {
   const { currentUser, signout } = useAuth();
 
   return (
-    <Button href="/signin" onClick={() => signout()}>
+    <Button
+      href={currentUser ? "/settings" : "/signin"}
+      onClick={signout}
+    >
       {currentUser ? "Sign Out" : "Sign In"}
     </Button>
   );

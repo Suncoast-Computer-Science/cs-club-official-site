@@ -1,4 +1,4 @@
-export default function ({ problemData }) {
+export default function ProblemHomepageHeader({ problemData }) {
   if (problemData) {
     return (
       <>

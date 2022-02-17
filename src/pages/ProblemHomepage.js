@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { ref, child, get } from "firebase/database";
 import { useAuth } from "../api/AuthContext";
 
 import Header from "../components/Header";
@@ -62,9 +63,10 @@ export default function ProblemHomepage() {
 
   useEffect(() => {
     const dataRequest = async () => {
-      const problemDataRequest = await db
-        .ref(`problems/${problemId}/data`)
-        .once("value");
+      //const problemDataRequest = await db.ref(`problems/${problemId}/data`).once('value')
+      const problemDataRequest = await get(
+        child(ref(db), `problems/${problemId}/data`)
+      );
       setProblemData(problemDataRequest.val());
     };
     dataRequest();

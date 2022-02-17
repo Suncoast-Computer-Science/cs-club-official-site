@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ref, get, child } from "firebase/database";
 import { useAuth } from "../api/AuthContext";
 
 import CompetitionCard from "../components/CompetitionCard";
@@ -10,7 +11,7 @@ export default function Competitions() {
 
   useEffect(
     () =>
-      db.ref("competitions").once("value", (snapshot) => {
+      get(child(ref(db), "competitions")).then((snapshot) => {
         let competitions = [];
         snapshot.forEach((snap) => {
           const key = snap.key;
@@ -18,6 +19,7 @@ export default function Competitions() {
           const obj = { ...val, key };
           competitions.push(obj);
         });
+
         setData(competitions);
       }),
     []

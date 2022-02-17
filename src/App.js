@@ -19,7 +19,11 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Homepage />} />
-          <Route path="/editor-test" element={<Editor />} />
+          <Route exact path="/settings" element={
+            <PrivateRoute>
+              <Settings />
+            </PrivateRoute>
+          }/>
           <Route exact path="/competitions" element={<Competitions />} />
           <Route path="/competitions/:id" element={<CompetitionHomepage />} />
           <Route

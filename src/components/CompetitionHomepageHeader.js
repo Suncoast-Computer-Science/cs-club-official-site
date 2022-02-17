@@ -1,6 +1,5 @@
 import { Badge } from "react-bootstrap";
-export default function ({ competitionData }) {
-  console.log(Date.now());
+export default function CompetitionHomepageHeader({ competitionData }) {
   if (competitionData) {
     return (
       <>
