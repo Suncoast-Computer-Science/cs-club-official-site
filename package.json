@@ -20,7 +20,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "NODE_ENV=development && react-scripts start",
+    "start": "npm-run-all -p start:emulators start:site",
+    "start:emulators": "NODE_ENV=development && firebase emulators:start --import=functions/.data --export-on-exit",
+    "start:site": "NODE_ENV=development && react-scripts start",
     "deploy": "cd ./functions && npm run deploy",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }
