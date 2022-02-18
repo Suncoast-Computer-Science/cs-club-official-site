@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
 
 import { AuthProvider } from "./api/AuthContext";
 import PrivateRoute from "./api/PrivateRoute";
@@ -11,7 +12,7 @@ import Signin from "./pages/Signin";
 import Register from "./pages/Register";
 import About from "./pages/About";
 import Settings from "./pages/Settings";
-import Editor from "./components/Editor";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -19,11 +20,24 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Homepage />} />
-          <Route exact path="/settings" element={
-            <PrivateRoute>
-              <Settings />
-            </PrivateRoute>
-          }/>
+          <Route
+            exact
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin"
+            element={
+              <PrivateRoute>
+                <Admin />
+              </PrivateRoute>
+            }
+          />
           <Route exact path="/competitions" element={<Competitions />} />
           <Route path="/competitions/:id" element={<CompetitionHomepage />} />
           <Route
