@@ -3,9 +3,11 @@ import { auth, db } from "./firebase";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  updateEmail as updateUserEmail,
+  verifyBeforeUpdateEmail,
+  sendEmailVerification,
   signOut,
   onAuthStateChanged,
+  updatePassword as updateUserPassword,
 } from "firebase/auth";
 
 const AuthContext = createContext();
@@ -17,19 +19,27 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   function register(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).then(credential => {
+      const user = credential.user;
+      sendEmailVerification(user);
+    })
+
   }
 
   function signin(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password)
   }
 
   function signout() {
     return signOut(auth);
   }
 
-  function updateEmail(email) {
-    return updateUserEmail(currentUser, email);
+  function updateEmail(newEmail) {
+    verifyBeforeUpdateEmail(currentUser, newEmail);
+  }
+
+  function updatePassword(newPassword) {
+    updateUserPassword()
   }
 
   useEffect(() => {
