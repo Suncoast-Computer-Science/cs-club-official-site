@@ -18,16 +18,26 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  function register(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password).then(credential => {
+  async function register(email, password) {
+    try {
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = credential.user;
       sendEmailVerification(user);
-    })
-
+    } catch (error) {
+      return error;
+    }
   }
 
-  function signin(email, password) {
-    signInWithEmailAndPassword(auth, email, password)
+  async function signin(email, password) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      return error;
+    }
   }
 
   function signout() {
@@ -39,7 +49,7 @@ const AuthProvider = ({ children }) => {
   }
 
   function updatePassword(newPassword) {
-    updateUserPassword()
+    updateUserPassword(currentUser, newPassword);
   }
 
   useEffect(() => {
@@ -57,8 +67,9 @@ const AuthProvider = ({ children }) => {
     signin,
     signout,
     updateEmail,
+    updatePassword,
     db,
-    auth
+    auth,
   };
 
   return (

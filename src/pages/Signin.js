@@ -1,6 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Card,
+  Container,
+  Row,
+  Col,
+  Alert,
+} from "react-bootstrap";
 import Header from "../components/Header";
 
 import { useAuth } from "../api/AuthContext";
@@ -8,16 +16,21 @@ import { useAuth } from "../api/AuthContext";
 export default function Signin() {
   const navigate = useNavigate();
   const { signin } = useAuth();
+  const [errorMessage, setErrorMessage] = useState(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  function handleEvent(e) {
+  async function handleEvent(e) {
     e.preventDefault();
-    // console.log(emailRef.current.value, passwordRef.current.value)
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    signin(email, password);
-    navigate("/");
+    const error = await signin(email, password);
+
+    if (error) {
+      setErrorMessage("Error: " + error.code.slice(5));
+    } else {
+      navigate("/");
+    }
   }
 
   return (
@@ -32,7 +45,10 @@ export default function Signin() {
                 Login
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Alert hidden={!errorMessage} variant="warning">
+                  {errorMessage}
+                </Alert>
+                <Form className="needs-validation">
                   <Form.Group className="mb-3" controlId="formGroupEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
@@ -51,14 +67,12 @@ export default function Signin() {
                   </Form.Group>
                 </Form>
                 <Button variant="primary" onClick={handleEvent} type="submit">
-                  {" "}
-                  Login{" "}
+                  Login
                 </Button>
               </Card.Body>
               <Card.Footer>
                 <Card.Link href="/register" style={{ textDecoration: "none" }}>
-                  {" "}
-                  Don't have an account? Register{" "}
+                  Don't have an account? Register
                 </Card.Link>
               </Card.Footer>
             </Card>

@@ -1,6 +1,14 @@
-import { useRef } from "react";
-import { Redirect, useNavigate } from "react-router-dom";
-import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Form,
+  Button,
+  Card,
+  Container,
+  Row,
+  Col,
+  Alert,
+} from "react-bootstrap";
 import Header from "../components/Header";
 
 import { useAuth } from "../api/AuthContext";
@@ -8,16 +16,21 @@ import { useAuth } from "../api/AuthContext";
 export default function Signin() {
   const navigate = useNavigate();
   const { register } = useAuth();
+  const [errorMessage, setErrorMessage] = useState(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  function handleEvent(e) {
+  async function handleEvent(e) {
     e.preventDefault();
-    // console.log(emailRef.current.value, passwordRef.current.value)
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    register(email, password);
-    navigate("/");
+    const error = await register(email, password);
+
+    if (error) {
+      setErrorMessage("Error: " + error.code.slice(5));
+    } else {
+      navigate("/");
+    }
   }
 
   return (
@@ -32,6 +45,9 @@ export default function Signin() {
                 Create your account
               </Card.Header>
               <Card.Body>
+                <Alert hidden={!errorMessage} variant="warning">
+                  {errorMessage}
+                </Alert>
                 <Form>
                   <Form.Group className="mb-3" controlId="formGroupEmail">
                     <Form.Label>Email address</Form.Label>
