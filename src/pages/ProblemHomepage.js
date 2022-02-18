@@ -90,6 +90,14 @@ export default function ProblemHomepage() {
     updatePassedAllLastSubmission();
   }, [lastSubmissionData]);
 
+  const languageIdToName = (id) => {
+    return {
+      71: "python",
+      76: "cpp",
+      50: "c",
+      62: "java",
+    }[id];
+  };
   const onTestSubmit = async (e) => {
     e.preventDefault();
     if (!isProcessing) {
@@ -137,7 +145,11 @@ export default function ProblemHomepage() {
               languageId={languageId}
               setLanguageId={setLanguageId}
             />
-            <Editor value={userCode} setUserCode={setUserCode} />
+            <Editor
+              value={userCode}
+              setUserCode={setUserCode}
+              language={languageIdToName(languageId)}
+            />
             <ProblemSubmissionButtons
               sampleInputRef={sampleInputRef}
               testResponse={testResponse}
