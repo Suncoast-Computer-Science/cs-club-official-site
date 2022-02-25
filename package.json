@@ -25,8 +25,8 @@
   },
   "scripts": {
     "start": "npm-run-all -p start:emulators start:site",
-    "start:emulators": "NODE_ENV=development && firebase emulators:start --import=functions/.data --export-on-exit",
-    "start:site": "NODE_ENV=development && react-scripts start",
+    "start:emulators": "firebase emulators:start --import=functions/.data --export-on-exit",
+    "start:site": "react-scripts start",
     "deploy": "cd ./functions && npm run deploy",
     "lint": "npx prettier --write .",
     "build": "react-scripts build",

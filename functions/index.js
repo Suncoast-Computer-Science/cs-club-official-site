@@ -1,7 +1,7 @@
-if (process.env.NODE_ENV === "development") {
-  require("dotenv").config({ path: ".env.local" });
-} else if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   require("dotenv").config({ path: ".env.production.local" });
+} else {
+  require("dotenv").config({ path: ".env.local" });
 }
 
 const functions = require("firebase-functions");
@@ -170,6 +170,7 @@ app.post("/submission/:competitionId/:problemId/:userId/", async (req, res) => {
 
 app.post("/test/", (req, res) => {
   const { submission, language, stdin } = req.body;
+
   axios({
     method: "POST",
     url: "https://" + process.env.RAPIDAPI_ENDPOINT + "/submissions",
