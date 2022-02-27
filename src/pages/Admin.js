@@ -1,5 +1,7 @@
 import Header from "../components/Header";
 import AddCompetitionPanel from "../components/AddCompetitionPanel";
+import AddProblemPanel from "../components/AddProblemPanel";
+
 const Admin = () => {
   return (
     <>
@@ -12,6 +14,7 @@ const Admin = () => {
       </div>
       <div className="container">
         <AddCompetitionPanel />
+        <AddProblemPanel />
       </div>
     </>
   );

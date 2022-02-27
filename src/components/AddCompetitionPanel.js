@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
-import { ref, set, child } from "firebase/database";
+import { ref, set, get, child } from "firebase/database";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 
 import { useAuth } from "../api/AuthContext";
@@ -16,6 +16,9 @@ export default function AddCompetitionPanel() {
   const idRef = useRef();
   const aboutRef = useRef();
   const inPersonRef = useRef();
+  const [problemsList, setProblemsList] = useState([]);
+  const problemDropdownRef = useRef();
+  const [problems, setProblems] = useState([]);
 
   const onCompetitionTimeChange = (_, { startDate, endDate }) => {
     setCompetitionDates({
@@ -23,6 +26,12 @@ export default function AddCompetitionPanel() {
       endDate: Date.parse(endDate._d),
     });
   };
+
+  useEffect(() => {
+    get(child(dbRef, "problemsList/")).then((snapshot) => {
+      setProblemsList(Object.keys(snapshot.val()));
+    });
+  }, [dbRef]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -32,6 +41,7 @@ export default function AddCompetitionPanel() {
       "start-date": competitionDates.startDate,
       "end-date": competitionDates.endDate,
       "in-person": inPersonRef.current.checked,
+      "problems": problems
     });
   };
 
@@ -81,6 +91,27 @@ export default function AddCompetitionPanel() {
                 </Col>
               </Row>
             </Container>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Add Problem:</Form.Label>
+            <Form.Select ref={problemDropdownRef}>
+              {problemsList.map((id, index) => (
+                <option key={index} value={id}>
+                  {id}
+                </option>
+              ))}
+            </Form.Select>
+            <Form.Label>{problems.join()}</Form.Label>
+          </Form.Group>
+          <Form.Group>
+            <Button
+              onClick={() =>
+                setProblems([...problems, problemDropdownRef.current.value])
+              }
+            >
+              Add Problem
+            </Button>
+            <Button onClick={() => setProblems([])}>Clear Problems</Button>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="In Person?" ref={inPersonRef} />
