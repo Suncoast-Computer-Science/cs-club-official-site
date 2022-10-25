@@ -13,21 +13,12 @@ export default function About() {
       <Container className="pt-5 pb-3">
         <Row>
           <Col className="text-center">
-            <h1>About the Club</h1>
+            <h2>About the Club</h2>
           </Col>
         </Row>
         <Row>
           <Col className="pt-4">
-            <p>
-              This is a testLorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Ut facilisis leo in quam dictum gravida. Fusce sed congue
-              orci, eget auctor nulla. Suspendisse ac elit lectus. Fusce a arcu
-              semper, lobortis nulla sit amet, rutrum massa. This is a testLorem
-              ipsum dolor sit amet, consectetur adipiscing elit. Ut facilisis
-              leo in quam dictum gravida. Fusce sed congue orci, eget auctor
-              nulla. Suspendisse ac elit lectus. Fusce a arcu semper, lobortis
-              nulla sit amet, rutrum massa.
-            </p>
+            <p className="text-center">Under Construction!</p>
           </Col>
         </Row>
       </Container>
@@ -36,21 +27,25 @@ export default function About() {
       <Container fluid className="mx-auto bg-light">
         <Row className="py-3">
           <Col className="text-center">
-            <h2> Meet Our Officers </h2>
+            <h2> Our Officers </h2>
           </Col>
         </Row>
-        <Row xs={1} md={2} lg={5} className="justify-content-center pb-3">
-          {officerData.map((element) => (
-            <Col style={{ width: "25rem" }} className="m-1">
-              <AboutCard
-                about={element.about}
-                name={element.name}
-                position={element.position}
-                url={element.url}
-              />
-            </Col>
-          ))}
-        </Row>
+        {officerData.map(({ year, officers }) => (
+          <>
+            <Row className="justify-content-center text-center py-2"><p className="text-center">{year}</p></Row>
+            <Row xs={1} md={2} lg={6} className="justify-content-center pb-3">
+              {officers.map(({ name, position, url }) => (
+                <Col className="m-1">
+                  <AboutCard
+                    name={name}
+                    position={position}
+                    url={url}
+                  />
+                </Col>
+              ))}
+            </Row>
+          </>
+        ))}
       </Container>
     </>
   );

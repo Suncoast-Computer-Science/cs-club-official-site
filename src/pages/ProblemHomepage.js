@@ -26,7 +26,7 @@ export default function ProblemHomepage() {
   const [problemData, setProblemData] = useState(null);
   const [testResponse, setTestResponse] = useState("");
   const [languageId, setLanguageId] = useState(71);
-  const [userCode, setUserCode] = useState("print('bruh')");
+  const [userCode, setUserCode] = useState("print('Hello World!') # Press the Test button!");
   const [lastSubmissionData, setLastSubmissionData] = useState(null);
   const [showSubmissionResults, setShowSubmissionResults] = useState(false);
   const [passedAll, setPassedAll] = useState(false);

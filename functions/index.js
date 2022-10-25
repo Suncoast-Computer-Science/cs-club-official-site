@@ -10,7 +10,7 @@ const app = express();
 const axios = require("axios");
 const cors = require("cors");
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
@@ -193,6 +193,10 @@ app.post("/test/", (req, res) => {
       res.send(result.data);
     })
     .catch((error) => console.log(error));
+});
+
+app.use("/hello/", (req, res) => {
+  res.send("hello!");
 });
 
 exports.api = functions.https.onRequest(app);

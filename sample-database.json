@@ -1,10 +1,10 @@
 {
   "competitions": {
     "competition-id": {
-      "name": "Test Competition",
-      "about": "About this competition",
+      "name": "MIT Creative Portolio Example",
+      "about": "Hello MIT!",
       "start-date": 1638814670162,
-      "end-date": 1640024330286,
+      "end-date": 1666737338019,
       "in-person": true,
       "problems": ["hello-world"]
     }
@@ -17,7 +17,7 @@
         "statement": "Rohit has a very busy job greeting all the contestants who have shown up to the Suncoast December 14th Competition. Help him gree these users by sending a custom message saying 'Hello, ___!' where he he can customize the name",
         "input": "Take in a single string",
         "output": "Print 'Hello, [Insert Name here]!' to standard output, where you replace [Insert Name here] with the string you received from standard input",
-        "preview": "Problem Description Goes Here",
+        "preview": "Explain the basics of this app!",
         "samples": [
           {
             "input": "Rohit",

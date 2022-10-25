@@ -36,7 +36,7 @@ export default function ProblemSubmissionButtons({
           <div className="col-form-label">&nbsp;</div>
           <div className="py-1">
             <button className="btn btn-secondary" onClick={onTestSubmit}>
-              Try Sample
+              Test
             </button>
           </div>
           {passedAll ? (

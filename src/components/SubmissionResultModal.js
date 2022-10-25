@@ -24,7 +24,7 @@ export default function SubmissionResultsModal({
                   <tr>
                     {lastSubmissionData.testcases.map((_, index) => (
                       <th key={index}>{index}</th>
-                    ))}{" "}
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
