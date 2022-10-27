@@ -31,7 +31,7 @@ export default function About() {
           </Col>
         </Row>
         {officerData.map(({ year, officers }) => (
-          <>
+          <>f
             <Row className="justify-content-center text-center py-2"><p className="text-center">{year}</p></Row>
             <Row xs={1} md={2} lg={6} className="justify-content-center pb-3">
               {officers.map(({ name, position, url }) => (
