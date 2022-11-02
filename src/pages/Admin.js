@@ -1,10 +1,10 @@
-import Header from "../components/Header";
+import Header from '../components/Header';
 const Admin = () => {
-  return (
-    <>
-      <Header />
-    </>
-  );
+	return (
+		<>
+			<Header />
+		</>
+	);
 };
 
 export default Admin;

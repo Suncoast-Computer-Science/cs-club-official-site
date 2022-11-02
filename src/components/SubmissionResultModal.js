@@ -1,55 +1,55 @@
-import { Modal, Table, Button } from "react-bootstrap";
+import { Modal, Table, Button } from 'react-bootstrap';
 
-import { useAuth } from "../api/AuthContext";
+import { useAuth } from '../api/AuthContext';
 
 export default function SubmissionResultsModal({
-  show,
-  handleClose,
-  lastSubmissionData,
+	show,
+	handleClose,
+	lastSubmissionData,
 }) {
-  const { currentUser } = useAuth();
-  return (
-    <Modal show={show} onHide={handleClose} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>Last Submission Results:</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {currentUser?.uid && lastSubmissionData ? (
-          <>
-            {typeof lastSubmissionData == "string" ? (
-              <>No past submissions!</>
-            ) : (
-              <>
-                <thead>
-                  <tr>
-                    {lastSubmissionData.testcases.map((_, index) => (
-                      <th key={index}>{index}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    {lastSubmissionData.testcases.map((result, index) => (
-                      <td key={index}>{result}</td>
-                    ))}
-                  </tr>
-                </tbody>
-                <p>
-                  <br />
-                  Submitted: {Date(lastSubmissionData.time)}
-                </p>
-              </>
-            )}
-          </>
-        ) : (
-          <>Sign in to view Submission Results!</>
-        )}
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
+	const { currentUser } = useAuth();
+	return (
+		<Modal show={show} onHide={handleClose} size='lg'>
+			<Modal.Header closeButton>
+				<Modal.Title>Last Submission Results:</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				{currentUser?.uid && lastSubmissionData ? (
+					<>
+						{typeof lastSubmissionData == 'string' ? (
+							<>No past submissions!</>
+						) : (
+							<>
+								<thead>
+									<tr>
+										{lastSubmissionData.testcases.map((_, index) => (
+											<th key={index}>{index}</th>
+										))}
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										{lastSubmissionData.testcases.map((result, index) => (
+											<td key={index}>{result}</td>
+										))}
+									</tr>
+								</tbody>
+								<p>
+									<br />
+									Submitted: {Date(lastSubmissionData.time)}
+								</p>
+							</>
+						)}
+					</>
+				) : (
+					<>Sign in to view Submission Results!</>
+				)}
+			</Modal.Body>
+			<Modal.Footer>
+				<Button variant='primary' onClick={handleClose}>
+					Close
+				</Button>
+			</Modal.Footer>
+		</Modal>
+	);
 }

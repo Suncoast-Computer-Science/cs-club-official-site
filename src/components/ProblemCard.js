@@ -5,28 +5,28 @@
 //     </div>
 //   )
 // }
-import { Card, Button } from "react-bootstrap";
+import { Card, Button } from 'react-bootstrap';
 
 export default function CompetitionCard({
-  competitionId,
-  problemId,
-  problemAuthor,
-  problemName,
-  problemPreview,
+	competitionId,
+	problemId,
+	problemAuthor,
+	problemName,
+	problemPreview,
 }) {
-  return (
-    <Card className="m-2 border-primary">
-      <Card.Body>
-        <Card.Title>{problemName}</Card.Title>
-        <Card.Text>{problemPreview}</Card.Text>
-        <Button
-          variant="primary"
-          href={"/competitions/" + competitionId + "/" + problemId}
-        >
-          Learn More
-        </Button>
-      </Card.Body>
-      <Card.Footer className="text-muted">Made by {problemAuthor}</Card.Footer>
-    </Card>
-  );
+	return (
+		<Card className='m-2 border-primary'>
+			<Card.Body>
+				<Card.Title>{problemName}</Card.Title>
+				<Card.Text>{problemPreview}</Card.Text>
+				<Button
+					variant='primary'
+					href={'/competitions/' + competitionId + '/' + problemId}
+				>
+					Learn More
+				</Button>
+			</Card.Body>
+			<Card.Footer className='text-muted'>Made by {problemAuthor}</Card.Footer>
+		</Card>
+	);
 }

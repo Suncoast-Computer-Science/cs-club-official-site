@@ -1,82 +1,82 @@
 [
-  {
-    "year": "2021-2022",
-    "officers": [
-      {
-        "name": "Rohit Dasgupta",
-        "position": "Co-President",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Brady Aber",
-        "position": "Co-President",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Harrison Katz",
-        "position": "Co-Treasurer",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Peter Van Kirk",
-        "position": "Co-Treasurer",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Lyla Ibrahim",
-        "position": "Media Relations",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Vincent Ngyuen",
-        "position": "Secretary",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Jacob Ryabinky",
-        "position": "Underclassmen Representive",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Luca Pishos",
-        "position": "Underclassmen Representive",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Umair Kazi",
-        "position": "Underclassmen Representive",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      }
-    ]
-  },
-  {
-    "year": "2020-2021",
-    "officers": [
-      {
-        "name": "Rohit Dasgupta",
-        "position": "Co-President",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Brady Aber",
-        "position": "Co-President",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Harrison Katz",
-        "position": "Treasurer",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Lyla Ibrahim",
-        "position": "Media Relations",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      },
-      {
-        "name": "Vincent Ngyuen",
-        "position": "Secretary",
-        "url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
-      }
-    ]
-  }
+	{
+		"year": "2021-2022",
+		"officers": [
+			{
+				"name": "Rohit Dasgupta",
+				"position": "Co-President",
+				"url": "images/rohit.jpeg"
+			},
+			{
+				"name": "Brady Aber",
+				"position": "Co-President",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Harrison Katz",
+				"position": "Co-Treasurer",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Peter Van Kirk",
+				"position": "Co-Treasurer",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Lyla Ibrahim",
+				"position": "Media Relations",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Vincent Ngyuen",
+				"position": "Secretary",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Jacob Ryabinky",
+				"position": "Underclassmen Representive",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Luca Pishos",
+				"position": "Underclassmen Representive",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Umair Kazi",
+				"position": "Underclassmen Representive",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			}
+		]
+	},
+	{
+		"year": "2020-2021",
+		"officers": [
+			{
+				"name": "Rohit Dasgupta",
+				"position": "Co-President",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Brady Aber",
+				"position": "Co-President",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Harrison Katz",
+				"position": "Treasurer",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Lyla Ibrahim",
+				"position": "Media Relations",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			},
+			{
+				"name": "Vincent Ngyuen",
+				"position": "Secretary",
+				"url": "https://s3-alpha.figma.com/hub/file/948140848/1f4d8ea7-e9d9-48b7-b70c-819482fb10fb-cover.png"
+			}
+		]
+	}
 ]
