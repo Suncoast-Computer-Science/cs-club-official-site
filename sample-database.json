@@ -1,76 +1,76 @@
 {
-  "competitions": {
-    "competition-id": {
-      "name": "MIT Creative Portolio Example",
-      "about": "Hello MIT!",
-      "start-date": 1638814670162,
-      "end-date": 1666737338019,
-      "in-person": true,
-      "problems": ["hello-world"]
-    }
-  },
-  "problems": {
-    "hello-world": {
-      "data": {
-        "name": "Hello CS Club!",
-        "author": "Rohit Dasgupta",
-        "statement": "Rohit has a very busy job greeting all the contestants who have shown up to the Suncoast December 14th Competition. Help him gree these users by sending a custom message saying 'Hello, ___!' where he he can customize the name",
-        "input": "Take in a single string",
-        "output": "Print 'Hello, [Insert Name here]!' to standard output, where you replace [Insert Name here] with the string you received from standard input",
-        "preview": "Explain the basics of this app!",
-        "samples": [
-          {
-            "input": "Rohit",
-            "output": "Hello, Rohit!"
-          },
-          {
-            "input": "CS Club",
-            "output": "Hello, CS Club!"
-          }
-        ]
-      },
-      "testcases": [
-        {
-          "input": "Monty\n",
-          "output": "Hello, Monty!\n"
-        },
-        {
-          "input": "Bruh\n",
-          "output": "Hello, Bruh!\n"
-        },
-        {
-          "input": "Rohit\n",
-          "output": "Hello, Rohit!\n"
-        },
-        {
-          "input": "Mr. Donato\n",
-          "output": "Hello, Mr. Donato!\n"
-        },
-        {
-          "input": "CS Club\n",
-          "output": "Hello, CS Club!\n"
-        },
-        {
-          "input": "World\n",
-          "output": "Hello, World!\n"
-        },
-        {
-          "input": "Finland\n",
-          "output": "Hello, Finland!\n"
-        },
-        {
-          "input": "Test Cases\n",
-          "output": "Hello, Test Cases!\n"
-        },
-        {
-          "input": "Mr. Dasgupta\n",
-          "output": "Hello, Mr. Dasgupta!\n"
-        },
-        {
-          "input": "Bruh2\n",
-          "output": "Hello, Bruh2!\n"
-        }
-      ]
-    }
-  }
+	"competitions": {
+		"competition-id": {
+			"name": "MIT Creative Portolio Example",
+			"about": "Hello MIT!",
+			"start-date": 1638814670162,
+			"end-date": 1666737338019,
+			"in-person": true,
+			"problems": ["hello-world"]
+		}
+	},
+	"problems": {
+		"hello-world": {
+			"data": {
+				"name": "Hello CS Club!",
+				"author": "Rohit Dasgupta",
+				"statement": "Rohit has a very busy job greeting all the contestants who have shown up to the Suncoast December 14th Competition. Help him gree these users by sending a custom message saying 'Hello, ___!' where he he can customize the name",
+				"input": "Take in a single string",
+				"output": "Print 'Hello, [Insert Name here]!' to standard output, where you replace [Insert Name here] with the string you received from standard input",
+				"preview": "Explain the basics of this app!",
+				"samples": [
+					{
+						"input": "Rohit",
+						"output": "Hello, Rohit!"
+					},
+					{
+						"input": "CS Club",
+						"output": "Hello, CS Club!"
+					}
+				]
+			},
+			"testcases": [
+				{
+					"input": "Monty\n",
+					"output": "Hello, Monty!\n"
+				},
+				{
+					"input": "Bruh\n",
+					"output": "Hello, Bruh!\n"
+				},
+				{
+					"input": "Rohit\n",
+					"output": "Hello, Rohit!\n"
+				},
+				{
+					"input": "Mr. Donato\n",
+					"output": "Hello, Mr. Donato!\n"
+				},
+				{
+					"input": "CS Club\n",
+					"output": "Hello, CS Club!\n"
+				},
+				{
+					"input": "World\n",
+					"output": "Hello, World!\n"
+				},
+				{
+					"input": "Finland\n",
+					"output": "Hello, Finland!\n"
+				},
+				{
+					"input": "Test Cases\n",
+					"output": "Hello, Test Cases!\n"
+				},
+				{
+					"input": "Mr. Dasgupta\n",
+					"output": "Hello, Mr. Dasgupta!\n"
+				},
+				{
+					"input": "Bruh2\n",
+					"output": "Hello, Bruh2!\n"
+				}
+			]
+		}
+	}
 }
