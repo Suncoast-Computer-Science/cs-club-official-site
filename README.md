@@ -1,9 +1,7 @@
 # Suncoast CS Club Website
-## Website Link
 [Visit the site](https://competition-submission-app.firebaseapp.com/)
 
 ## About
-Developed by [Rohit Dasgupta](https://github.com/rdg922) (CS Club President), with help from [br0der](https://github.com/br0der), and [Jacob Ryabinky](https://github.com/hydrol0x). 
 
 The main purpose of the website is to provide a place to host local and interschool competitive programming competitions for highschoolers. 
 
@@ -17,19 +15,21 @@ The chief reason for the site is to handle an interschool competition between sc
 
 ## Stack
 ### Frontend
-- React
-- React Bootstrap
-- Monaco code editor
-    - Allows us to have a code editor built in as an altenative to using an IDE In a competition.
-    - [Monaco Editor](https://microsoft.github.io/monaco-editor/)
+- [React](https://reactjs.org/) frontend framework
+- [React Bootstrap](https://react-bootstrap.github.io/) component library
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/) for in-browser code editing
 ### Backend
-- Firebase
+- [Firebase](https://firebase.google.com/)
     - Authentication 
     - Database 
     - Serverless functions 
-- Judge0 
+- [Judge0](https://judge0.com/)
     - Code execution from editor
-    - Grading submissions
+    - Grading submissionss
 
 ## In the Future
-Expanding the site to use it for other club purposes. For instance, hosting lesson sign up, CS tutoring sign up, club attendance, and other programming resources through the site.
+Expanding the site to use it for other club purposes:
+- Other Local Competitions
+- Programming Resources
+- CS Tutoring
+- Club Attendance
