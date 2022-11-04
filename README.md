@@ -21,14 +21,15 @@ The chief reason for the site is to handle an interschool competition between sc
 - React Bootstrap
 - Monaco code editor
     - Allows us to have a code editor built in as an altenative to using an IDE In a competition.
-
+    - [Monaco Editor](https://microsoft.github.io/monaco-editor/)
 ### Backend
 - Firebase
     - Authentication 
     - Database 
     - Serverless functions 
 - Judge0 
-    - Code execution
+    - Code execution from editor
+    - Grading submissions
 
 > TODO: Enter information about stack
 
