@@ -31,7 +31,6 @@ The chief reason for the site is to handle an interschool competition between sc
     - Code execution from editor
     - Grading submissions
 
-> TODO: Enter information about stack
 
 ## Future
 Expanding the site to use it for other club purposes. For instance, hosting lesson sign up, CS tutoring sign up, club attendance, and other programming resources through the site.
