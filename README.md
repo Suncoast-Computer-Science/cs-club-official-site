@@ -1,6 +1,6 @@
 # Suncoast CS Club Website
 ## Website Link
-[Visit the site]()
+[Visit the site](https://competition-submission-app.firebaseapp.com/)
 
 ## About
 Developed by [Rohit Dasgupta](https://github.com/rdg922) (CS Club President), with help from [br0der](https://github.com/br0der), and [Jacob Ryabinky](https://github.com/hydrol0x). 
