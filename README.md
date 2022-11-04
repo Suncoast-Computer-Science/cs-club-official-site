@@ -1,6 +1,6 @@
 # Suncoast CS Club Website
 ## Website Link
-[Visit the site](https://google.com)
+[Visit the site]()
 
 ## About
 Developed by [Rohit Dasgupta](https://github.com/rdg922) (CS Club President), with help from [br0der](https://github.com/br0der), and [Jacob Ryabinky](https://github.com/hydrol0x). 
@@ -16,9 +16,19 @@ The CS club has hosted informal competitive programming competitions at Suncoast
 The chief reason for the site is to handle an interschool competition between schools in Palm Beach School District (PBSD). There are some notable competitive programming competitions in Florida (like [UCF's HSPT](https://hspt.ucfprogrammingteam.org/)), but there are no major ones in PBSD. This competition would also be organized by highschool students, for highschool students. Hosting it earlier, without a dedicated website, was too logistically challenging. The website will allow us to run a large scale competition and continue in future years.
 
 ## Stack
-1. React
-    - Something
-2. Yes
+### Frontend
+- React
+- React Bootstrap
+- Monaco code editor
+    - Allows us to have a code editor built in as an altenative to using an IDE In a competition.
+
+### Backend
+- Firebase
+    - Authentication 
+    - Database 
+    - Serverless functions 
+- Judge0 
+    - Code execution
 
 > TODO: Enter information about stack
 
