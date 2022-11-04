@@ -121,30 +121,36 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 		.ref(`problems/${problemId}/testcases`)
 		.once('value');
 	const testcases = testcaseSnapshot.val();
-	// TODO: handle error if no tc data from firebase
+
+	//Get submissions
 	const submissionsSnapshot = await admin
 		.database()
 		.ref(`submissions/${competitionId}/${problemId}/${userId}`)
 		.once('value');
+
 	let index = !!submissionsSnapshot.val()
 		? submissionsSnapshot.val().length
 		: 0;
+
+	const submissionTime = Date.now();
+
 	let newSubmission = {
 		submission: submission,
 		language: language,
-		time: Date.now(),
+		time: submissionTime,
 		testcases: Array(testcases.length).fill('PENDING'),
 	};
+
 	await admin
 		.database()
 		.ref(`submissions/${competitionId}/${problemId}/${userId}`)
 		.child(index)
 		.set(newSubmission);
 
-	// TODO: make it so that each test case will update independently
 	let promises = testcases.map(({ input, output }) =>
 		validateTestcase(submission, language, input, output)
 	);
+
 	const results = await Promise.all(promises);
 
 	let countAccepted = 0;
@@ -158,11 +164,70 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 		testcases: testcaseResults,
 		passedAll: countAccepted === results.length,
 	};
-	await admin
+
+	const incorrectAttemptsCountRef = admin
+		.database()
+		.ref(`incorrect-attempts-count/${competitionId}/${problemId}/${userId}`);
+
+	const getIncorrectAttemptsCount = async () => {
+		let timesIncorrectSnapshot = await incorrectAttemptsCountRef.get();
+		let timesIncorrect = 0;
+		if (!timesIncorrectSnapshot.exists()) {
+			timesIncorrect = 1;
+		}
+
+		return timesIncorrect;
+	};
+
+	if (countAccepted !== results.length) {
+		await incorrectAttemptsCountRef.set(await getIncorrectAttemptsCount());
+	}
+
+	admin
 		.database()
 		.ref(`submissions/${competitionId}/${problemId}/${userId}`)
 		.child(index)
 		.set(newSubmission);
+
+	admin.database().ref(`ranking/${competitionId}/all/${submissionTime}`).set({
+		user: userId,
+		countAccepted,
+	});
+
+	admin
+		.database()
+		.ref(`rankings/${competitionId}/users/${userId}/${submissionTime}`)
+		.set({
+			countAccepted,
+			testcases: testcaseResults,
+		});
+
+	admin
+		.database()
+		.ref(`points/${competitionId}/${userId}`)
+		.get()
+		.then(async (snapshot) => {
+			const competition = admin
+				.database()
+				.ref(`competitions/${competitionId}/${userId}`)
+				.get();
+			let minutesElapsed =
+				Math.floor((submissionTime - competition['start-date']) / 1000 / 1000) *
+				60;
+			let deductionPerMinute = competition.deductions.minute;
+			let incorrectAttemptsCount = await getIncorrectAttemptsCount();
+			let deductionsPerIncorrectAttempt = competition.deductions.incorrect;
+			if (!snapshot.exists()) {
+				admin
+					.database()
+					.ref(`points/${competitionId}/${userId}`)
+					.set({
+						deducted:
+							minutesElapsed * deductionPerMinute +
+							incorrectAttemptsCount * deductionsPerIncorrectAttempt,
+					});
+			}
+		});
 
 	// res.send("tescase sent!")
 	res.send(newSubmission); // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
