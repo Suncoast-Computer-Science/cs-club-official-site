@@ -189,14 +189,14 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 		.child(index)
 		.set(newSubmission);
 
-	admin.database().ref(`ranking/${competitionId}/all/${submissionTime}`).set({
+	admin.database().ref(`logs/${competitionId}/all/${submissionTime}`).set({
 		user: userId,
 		countAccepted,
 	});
 
 	admin
 		.database()
-		.ref(`rankings/${competitionId}/users/${userId}/${submissionTime}`)
+		.ref(`logs/${competitionId}/users/${userId}/times/${submissionTime}`)
 		.set({
 			countAccepted,
 			testcases: testcaseResults,
@@ -204,30 +204,38 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 
 	admin
 		.database()
-		.ref(`points/${competitionId}/${userId}`)
-		.get()
-		.then(async (snapshot) => {
-			const competition = admin
+		.ref(`logs/${competitionId}/users/${userId}/recent`)
+		.set({
+			countAccepted,
+			testcases: testcaseResults,
+		});
+
+	// admin
+	// 	.database()
+	// 	.ref(`points/${competitionId}/${userId}`)
+	// 	.get()
+	// 	.then(async (snapshot) => {
+			const competitionSnapshot = await admin
 				.database()
-				.ref(`competitions/${competitionId}/${userId}`)
+				.ref(`competitions/${competitionId}`)
 				.get();
+			const competition = competitionSnapshot.val()
 			let minutesElapsed =
 				Math.floor((submissionTime - competition['start-date']) / 1000 / 1000) *
 				60;
 			let deductionPerMinute = competition.deductions.minute;
 			let incorrectAttemptsCount = await getIncorrectAttemptsCount();
 			let deductionsPerIncorrectAttempt = competition.deductions.incorrect;
-			if (!snapshot.exists()) {
-				admin
-					.database()
-					.ref(`points/${competitionId}/${userId}`)
-					.set({
-						deducted:
-							minutesElapsed * deductionPerMinute +
-							incorrectAttemptsCount * deductionsPerIncorrectAttempt,
-					});
-			}
-		});
+			// if (!snapshot.exists()) {
+			admin
+				.database()
+				.ref(`deductions/${competitionId}/${userId}/`)
+				.set(
+						minutesElapsed * deductionPerMinute +
+						incorrectAttemptsCount * deductionsPerIncorrectAttempt,
+				);
+			// }
+		// });
 
 	// res.send("tescase sent!")
 	res.send(newSubmission); // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
