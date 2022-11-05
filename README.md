@@ -13,7 +13,7 @@ The main purpose of the website is to provide a place to host local and intersch
 The CS club has hosted informal competitive programming competitions at Suncoast before that didn't require as much planning. But, even grading submissions on such a small scale required a lot of effort. In the future, the CS club site will be used for these school competitions allowing us to grade submissions and handle users in a streamlined way. 
 
 ### Interschool
-The chief reason for the site is to handle an interschool competition between schools in Palm Beach School District (PBSD). There are some notable competitive programming competitions in Florida (like [UCF's HSPT](https://hspt.ucfprogrammingteam.org/)), but there are no major ones in PBSD. This competition would also be organized by highschool students, for highschool students. Hosting it earlier, without a dedicated website, was too logistically challenging. The website will allow us to run a large scale competition and continue in future years.
+The chief reason for the site is to handle interschool competitions between schools in Palm Beach School District (PBSD). There are some notable competitive programming competitions in Florida (like [UCF's HSPT](https://hspt.ucfprogrammingteam.org/)), but there are no major ones in PBSD. This competition would also be organized by highschool students, for highschool students. Hosting it earlier without a dedicated website was too logistically challenging. The website will allow us to run a large scale competition and continue in future years.
 
 ## Stack
 ### Frontend
