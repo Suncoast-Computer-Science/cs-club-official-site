@@ -1,4 +1,4 @@
-# Suncoast CS Club Website ![Bruh](https://github.com/Suncoast-Computer-Science/cs-club-official-site/actions/workflows/firebase-hosting-merge.yml/badge.svg)
+# Suncoast CS Club Website ![Bruh](https://github.com/Suncoast-Computer-Science/cs-club-official-site/actions/workflows/firebase-hosting-push.yml/badge.svg)
 [Visit the site](https://competition-submission-app.firebaseapp.com/)
 
 
