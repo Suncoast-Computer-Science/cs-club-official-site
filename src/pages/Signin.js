@@ -52,12 +52,17 @@ export default function Signin() {
 								</Alert>
 
 								<Button
-									className='mx-auto'
+									className='m-auto d-flex align-items-center'
 									variant='outline-primary'
 									onClick={handleEvent}
 									type='submit'
 								>
-									<b>G</b> Sign in with Google
+									<img
+										width='20px'
+										alt='Google sign-in'
+										src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png'
+									/>
+									Sign in with Google
 								</Button>
 							</Card.Body>
 						</Card>
