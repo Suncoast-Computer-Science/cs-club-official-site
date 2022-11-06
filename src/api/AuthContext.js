@@ -1,13 +1,10 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { auth, db } from './firebase';
 import {
-	signInWithEmailAndPassword,
-	createUserWithEmailAndPassword,
-	verifyBeforeUpdateEmail,
-	sendEmailVerification,
+	GoogleAuthProvider,
+	signInWithPopup,
 	signOut,
 	onAuthStateChanged,
-	updatePassword as updateUserPassword,
 } from 'firebase/auth';
 
 const AuthContext = createContext();
@@ -18,23 +15,10 @@ const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState();
 	const [loading, setLoading] = useState(true);
 
-	async function register(email, password) {
+	async function signin() {
+		const provider = new GoogleAuthProvider();
 		try {
-			const credential = await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password
-			);
-			const user = credential.user;
-			sendEmailVerification(user);
-		} catch (error) {
-			return error;
-		}
-	}
-
-	async function signin(email, password) {
-		try {
-			await signInWithEmailAndPassword(auth, email, password);
+			await signInWithPopup(auth, provider);
 		} catch (error) {
 			return error;
 		}
@@ -42,14 +26,6 @@ const AuthProvider = ({ children }) => {
 
 	function signout() {
 		return signOut(auth);
-	}
-
-	function updateEmail(newEmail) {
-		verifyBeforeUpdateEmail(currentUser, newEmail);
-	}
-
-	function updatePassword(newPassword) {
-		updateUserPassword(currentUser, newPassword);
 	}
 
 	useEffect(() => {
@@ -63,11 +39,8 @@ const AuthProvider = ({ children }) => {
 
 	const value = {
 		currentUser,
-		register,
 		signin,
 		signout,
-		updateEmail,
-		updatePassword,
 		db,
 		auth,
 	};

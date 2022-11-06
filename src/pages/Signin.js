@@ -22,12 +22,10 @@ export default function Signin() {
 
 	async function handleEvent(e) {
 		e.preventDefault();
-		const email = emailRef.current.value;
-		const password = passwordRef.current.value;
-		const error = await signin(email, password);
+		const error = await signin();
 
 		if (error) {
-			setErrorMessage('Error: ' + error.code.slice(5));
+			setErrorMessage('Something went wrong!');
 		} else {
 			navigate('/');
 		}
