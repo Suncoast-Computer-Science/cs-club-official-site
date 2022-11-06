@@ -38,41 +38,28 @@ export default function Signin() {
 			<Container>
 				<Row>
 					<Col>
-						<Card className='mx-auto mt-5' style={{ width: '25rem' }}>
-							<Card.Header as='h4' className='text-center'>
-								Login
-							</Card.Header>
+						<Card
+							className='mx-auto mt-5 d-flex align-items-center'
+							style={{ width: '14rem' }}
+						>
 							<Card.Body>
-								<Alert hidden={!errorMessage} variant='warning'>
+								<Alert
+									hidden={!errorMessage}
+									variant='danger'
+									style={{ fontSize: '11pt' }}
+								>
 									{errorMessage}
 								</Alert>
-								<Form className='needs-validation'>
-									<Form.Group className='mb-3' controlId='formGroupEmail'>
-										<Form.Label>Email address</Form.Label>
-										<Form.Control
-											type='email'
-											ref={emailRef}
-											placeholder='Enter email'
-										/>
-									</Form.Group>
-									<Form.Group className='mb-3' controlId='formGroupPassword'>
-										<Form.Label>Password</Form.Label>
-										<Form.Control
-											type='password'
-											ref={passwordRef}
-											placeholder='Password'
-										/>
-									</Form.Group>
-								</Form>
-								<Button variant='primary' onClick={handleEvent} type='submit'>
-									Login
+
+								<Button
+									className='mx-auto'
+									variant='outline-primary'
+									onClick={handleEvent}
+									type='submit'
+								>
+									<b>G</b> Sign in with Google
 								</Button>
 							</Card.Body>
-							<Card.Footer>
-								<Card.Link href='/register' style={{ textDecoration: 'none' }}>
-									Don't have an account? Register
-								</Card.Link>
-							</Card.Footer>
 						</Card>
 					</Col>
 				</Row>
