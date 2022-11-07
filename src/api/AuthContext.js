@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
 		try {
 			await signInWithPopup(auth, provider);
 		} catch (error) {
-			return error;
+			console.log(error);
 		}
 	}
 
