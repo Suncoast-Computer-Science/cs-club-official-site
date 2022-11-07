@@ -13,12 +13,24 @@ export default function About() {
 			<Container className='pt-5 pb-3'>
 				<Row>
 					<Col className='text-center'>
-						<h2>About the Club</h2>
+						<h1>About the Club</h1>
 					</Col>
 				</Row>
 				<Row>
-					<Col className='pt-4'>
-						<p className='text-center'>Under Construction!</p>
+					<Col>
+						<p className='text-danger text-center'>Under Construction!</p>
+					</Col>
+				</Row>
+				<Row>
+					<Col className='text-center my-3'>
+						<h2>Contact Us</h2>
+						<h5 className='inline'></h5>
+						<p className='m-0'>
+							<b>Club Sponsor</b> - joshua.donato@palmbeachschools.org
+						</p>
+						<p className='m-0'>
+							<b>Club Co-President</b> - rohit.dasgupta922@gmail.com
+						</p>
 					</Col>
 				</Row>
 			</Container>
