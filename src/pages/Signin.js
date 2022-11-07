@@ -40,7 +40,7 @@ export default function Signin() {
 					<Col>
 						<Card
 							className='mx-auto mt-5 d-flex align-items-center'
-							style={{ width: '14rem' }}
+							style={{ width: '15rem' }}
 						>
 							<Card.Body>
 								<Alert
@@ -52,12 +52,15 @@ export default function Signin() {
 								</Alert>
 
 								<Button
-									className='m-auto d-flex align-items-center'
-									variant='outline-primary'
+									className='m-auto d-flex align-items-center border-2 text-dark'
+									variant='outline-light'
 									onClick={handleEvent}
 									type='submit'
 								>
 									<img
+										style={{
+											marginRight: '10px',
+										}}
 										width='20px'
 										alt='Google sign-in'
 										src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png'
