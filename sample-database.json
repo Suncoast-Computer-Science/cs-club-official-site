@@ -3,6 +3,10 @@
 		"competition-id": {
 			"name": "MIT Creative Portolio Example",
 			"about": "Hello MIT!",
+      "deductions": {
+        "minute": 1,
+        "incorrect": 10
+      },
 			"start-date": 1638814670162,
 			"end-date": 1666737338019,
 			"in-person": true,
