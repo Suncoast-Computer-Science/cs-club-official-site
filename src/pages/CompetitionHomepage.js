@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ref, get, child } from 'firebase/database';
 import { useAuth } from '../api/AuthContext';
+import { getAuth } from 'firebase/auth';
 
 import ProblemCard from '../components/ProblemCard';
 import Header from '../components/Header';
 import CompetitionHomepageHeader from '../components/CompetitionHomepageHeader';
+import { getRank } from '../api/BackendRequests';
 
 export default function CompetitionHomepage() {
 	const { db } = useAuth();
@@ -13,9 +15,10 @@ export default function CompetitionHomepage() {
 	const { id } = useParams();
 	const [problemData, setProblemData] = useState([]);
 	const [competitionData, setCompetitionData] = useState(null);
+	const [placement, setPlacement] = useState('');
 
 	useEffect(() => {
-		const onMount = async () => {
+		const getCompetitionData = async () => {
 			const snapshot = await get(child(dbRef, 'competitions/' + id));
 			let data = snapshot.val();
 			setCompetitionData(data);
@@ -30,7 +33,21 @@ export default function CompetitionHomepage() {
 			}
 			setProblemData(problems);
 		};
-		onMount();
+		getCompetitionData();
+
+		const getPlacement = async () => {
+			const { currentUser } = getAuth();
+			console.log(currentUser);
+
+			if (!currentUser?.uid) {
+				setPlacement('No Submissions!');
+				return;
+			}
+			const { data } = await getRank(id, currentUser.uid);
+			setPlacement(data);
+		};
+
+		getPlacement();
 	}, []);
 
 	// useEffect(() => {
@@ -45,7 +62,10 @@ export default function CompetitionHomepage() {
 	return (
 		<>
 			<Header />
-			<CompetitionHomepageHeader competitionData={competitionData} />
+			<CompetitionHomepageHeader
+				competitionData={competitionData}
+				placement={placement}
+			/>
 			{problemData.map((problem, index) => (
 				<ProblemCard
 					competitionId={id}
