@@ -18,6 +18,7 @@ const useAuth = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState();
 	const [loading, setLoading] = useState(true);
+	const [firstTime, setFirstTime] = useState();
 
 	async function signin() {
 		const provider = new GoogleAuthProvider();
@@ -41,8 +42,11 @@ const AuthProvider = ({ children }) => {
 				const dbRef = ref(getDatabase());
 				get(child(dbRef, `users/${userId}`)).then((snapshot) => {
 					if (!snapshot.exists()) {
-						navigate('/register');
+						setFirstTime(true);
 						console.log('New User');
+					} else {
+						setFirstTime(false);
+						console.log('Old User');
 					}
 				});
 			} else {
@@ -55,6 +59,7 @@ const AuthProvider = ({ children }) => {
 
 	const value = {
 		currentUser,
+		firstTime,
 		signin,
 		signout,
 		db,
