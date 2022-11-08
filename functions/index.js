@@ -94,7 +94,10 @@ const validateTestcase = (submission, language, stdin, stdout) => {
 
 app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 	const { competitionId, problemId, userId } = req.params;
-	const { submission, language } = req.body;
+  const { submission, language } = req.body;
+
+  // Add participants to competition
+  admin.database().ref(`participants/${competitionId}/${userId}`).set(true)
 
 	// First make sure there are no pending submissions
 	const userSubmissionResults = await getUserSubmissionTestcases(
@@ -165,6 +168,14 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 		passedAll: countAccepted === results.length,
 	};
 
+	// Adds 1 to the number of questions a user has solved for a competition
+	if (countAccepted === results.length) {
+		const questionSolvedCountRef = admin.database().ref(`question-solved-count/${competitionId}/${userId}`)
+		questionSolvedCountRef.get().then(snapshot => {
+			questionSolvedCountRef.set(snapshot.val() + 1);
+		})
+	}
+
 	const incorrectAttemptsCountRef = admin
 		.database()
 		.ref(`incorrect-attempts-count/${competitionId}/${problemId}/${userId}`);
@@ -179,21 +190,13 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 		return timesIncorrect;
 	};
 
-	if (countAccepted !== results.length) {
-		await incorrectAttemptsCountRef.set(await getIncorrectAttemptsCount());
-	}
-
 	admin
 		.database()
 		.ref(`submissions/${competitionId}/${problemId}/${userId}`)
 		.child(index)
 		.set(newSubmission);
 
-	admin.database().ref(`logs/${competitionId}/all/${submissionTime}`).set({
-		user: userId,
-		countAccepted,
-	});
-
+  // Logs 
 	admin
 		.database()
 		.ref(`logs/${competitionId}/users/${userId}/times/${submissionTime}`)
@@ -202,44 +205,55 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 			testcases: testcaseResults,
 		});
 
+	admin.database().ref(`logs/${competitionId}/users/${userId}/recent`).set({
+		countAccepted,
+		testcases: testcaseResults,
+	});
+
+	const competitionSnapshot = await admin
+		.database()
+		.ref(`competitions/${competitionId}`)
+		.get();
+
+	const competition = competitionSnapshot.val();
+	let minutesElapsed =
+		Math.floor((submissionTime - competition['start-date']) / 1000 / 1000) * 60;
+	let deductionPerMinute = competition.deductions.minute;
+  let incorrectAttemptsCount = await getIncorrectAttemptsCount();
+	let deductionsPerIncorrectAttempt = competition.deductions.incorrect;
+
+	admin.database().ref(`incorrect-attempts-count/${competitionId}/${problemId}/${userId}`).set(incorrectAttemptsCount + 1)
+
 	admin
 		.database()
-		.ref(`logs/${competitionId}/users/${userId}/recent`)
-		.set({
-			countAccepted,
-			testcases: testcaseResults,
-		});
-
-	// admin
-	// 	.database()
-	// 	.ref(`points/${competitionId}/${userId}`)
-	// 	.get()
-	// 	.then(async (snapshot) => {
-			const competitionSnapshot = await admin
-				.database()
-				.ref(`competitions/${competitionId}`)
-				.get();
-			const competition = competitionSnapshot.val()
-			let minutesElapsed =
-				Math.floor((submissionTime - competition['start-date']) / 1000 / 1000) *
-				60;
-			let deductionPerMinute = competition.deductions.minute;
-			let incorrectAttemptsCount = await getIncorrectAttemptsCount();
-			let deductionsPerIncorrectAttempt = competition.deductions.incorrect;
-			// if (!snapshot.exists()) {
-			admin
-				.database()
-				.ref(`deductions/${competitionId}/${userId}/`)
-				.set(
-						minutesElapsed * deductionPerMinute +
-						incorrectAttemptsCount * deductionsPerIncorrectAttempt,
-				);
-			// }
-		// });
+		.ref(`deductions/${competitionId}/${userId}/`)
+		.set(
+			minutesElapsed * deductionPerMinute +
+				(incorrectAttemptsCount + 1) * deductionsPerIncorrectAttempt
+		);
 
 	// res.send("tescase sent!")
 	res.send(newSubmission); // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
 });
+
+app.get('/ranking/', async (req, res) => {
+  const {competitionId, userId} = req.params;
+  const cacheLiftime = 1000 * 1000 * 60; // 1 minute
+  let rank = 0;
+
+  const rankingCacheRef = await admin.database().ref(`rankings/time/${competitionId}/`).get();
+  const rankingCacheData = rankingCacheRef.val();
+
+  // If cached and cached time is before its ended
+  if (rankingCacheData.cacheTime && rankingData.cacheTime < Date.now() + cacheLiftime) {
+    const rankSnapshot = await admin.database().ref(`rankings/cache/${competitionId}/${userId}`).get();
+    rank = rankSnapshot.val();
+  } else {
+    const 
+  }
+
+  res.send()
+})
 
 app.post('/test/', (req, res) => {
 	const { submission, language, stdin } = req.body;
