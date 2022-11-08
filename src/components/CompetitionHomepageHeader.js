@@ -1,5 +1,8 @@
 import { Badge } from 'react-bootstrap';
-export default function CompetitionHomepageHeader({ competitionData }) {
+export default function CompetitionHomepageHeader({
+	competitionData,
+	placement,
+}) {
 	if (competitionData) {
 		return (
 			<>
@@ -19,6 +22,10 @@ export default function CompetitionHomepageHeader({ competitionData }) {
 							&nbsp;
 							<Badge pill bg='primary'>
 								{competitionData['in-person'] ? 'In-Person' : 'Virtual'}
+							</Badge>
+							&nbsp;
+							<Badge pill bg='primary'>
+								{placement ? '#' + placement : ''}
 							</Badge>
 						</h3>
 						<p>

@@ -40,3 +40,12 @@ export const getLastSubmission = async (competitionId, problemId, userId) => {
 	);
 	return res;
 };
+
+export const getRank = async (competitionId, userId) => {
+	if (!userId) return { val: () => 'bruh' };
+	const res = await axios.get(
+		process.env.REACT_APP_FIREBASE_FUNCTION_ENDPOINT +
+			`/ranking/${competitionId}/${userId}`
+	);
+	return res;
+};
