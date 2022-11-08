@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import About from './pages/About';
 import Settings from './pages/Settings';
 import Admin from './pages/Admin';
+import Resources from './pages/Resources';
 
 function App() {
 	return (
@@ -47,6 +48,7 @@ function App() {
 					<Route path='/signin' element={<Signin />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/about' element={<About />} />
+					<Route path='/resources' element={<Resources />} />
 				</Routes>
 			</Router>
 		</AuthProvider>

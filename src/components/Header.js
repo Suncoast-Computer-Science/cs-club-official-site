@@ -12,6 +12,7 @@ export default function Header() {
 					<Nav className='me-auto'>
 						<Nav.Link href='/about'>About</Nav.Link>
 						<Nav.Link href='/competitions'>Competitions</Nav.Link>
+						<Nav.Link href='/resources'>Resources</Nav.Link>
 					</Nav>
 					<Row>
 						<SigninButton />
