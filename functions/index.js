@@ -94,10 +94,10 @@ const validateTestcase = (submission, language, stdin, stdout) => {
 
 app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 	const { competitionId, problemId, userId } = req.params;
-  const { submission, language } = req.body;
+	const { submission, language } = req.body;
 
-  // Add participants to competition
-  admin.database().ref(`participants/${competitionId}/${userId}`).set(true)
+	// Add participants to competition
+	admin.database().ref(`participants/${competitionId}/${userId}`).set(true);
 
 	// First make sure there are no pending submissions
 	const userSubmissionResults = await getUserSubmissionTestcases(
@@ -169,17 +169,29 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 	};
 
 	// Adds 1 to the number of questions a user has solved for a competition
-  if (countAccepted === results.length) {
-    console.log('bruh')
-    const questionSolvedCountRef = admin.database().ref(`question-solved-count/${competitionId}/${userId}`)
-    questionSolvedCountRef.get().then(snapshot => {
-      const newQuestionSolvedCount = snapshot.val() + 1
+	if (countAccepted === results.length) {
+		console.log('bruh');
+		const questionSolvedCountRef = admin
+			.database()
+			.ref(`question-solved-count/${competitionId}/${userId}`);
+		questionSolvedCountRef.get().then((snapshot) => {
+			const newQuestionSolvedCount = snapshot.val() + 1;
 			questionSolvedCountRef.set(newQuestionSolvedCount);
-      admin.database().ref(`ranking-user-data/${competitionId}/${userId}/question-solved-count/`).set(newQuestionSolvedCount)
-    })
-  } else {
-      admin.database().ref(`ranking-user-data/${competitionId}/${userId}/question-solved-count/`).set(0)
-  }
+			admin
+				.database()
+				.ref(
+					`ranking-user-data/${competitionId}/${userId}/question-solved-count/`
+				)
+				.set(newQuestionSolvedCount);
+		});
+	} else {
+		admin
+			.database()
+			.ref(
+				`ranking-user-data/${competitionId}/${userId}/question-solved-count/`
+			)
+			.set(0);
+	}
 
 	const incorrectAttemptsCountRef = admin
 		.database()
@@ -210,68 +222,91 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 	let minutesElapsed =
 		Math.floor((submissionTime - competition['start-date']) / 1000 / 1000) * 60;
 	let deductionPerMinute = competition.deductions.minute;
-  let incorrectAttemptsCount = await getIncorrectAttemptsCount();
+	let incorrectAttemptsCount = await getIncorrectAttemptsCount();
 	let deductionsPerIncorrectAttempt = competition.deductions.incorrect;
 
-	admin.database().ref(`incorrect-attempts-count/${competitionId}/${problemId}/${userId}`).set(incorrectAttemptsCount + 1)
+	admin
+		.database()
+		.ref(`incorrect-attempts-count/${competitionId}/${problemId}/${userId}`)
+		.set(incorrectAttemptsCount + 1);
 
-  const newDeductions = minutesElapsed * deductionPerMinute + (incorrectAttemptsCount + 1) * deductionsPerIncorrectAttempt
+	const newDeductions =
+		minutesElapsed * deductionPerMinute +
+		(incorrectAttemptsCount + 1) * deductionsPerIncorrectAttempt;
 	admin
 		.database()
 		.ref(`deductions/${competitionId}/${userId}/`)
-    .set(
-      newDeductions
-		);
+		.set(newDeductions);
 
-  admin.database().ref(`ranking-user-data/${competitionId}/${userId}/deductions/`).set(newDeductions)
+	admin
+		.database()
+		.ref(`ranking-user-data/${competitionId}/${userId}/deductions/`)
+		.set(newDeductions);
 	// res.send("tescase sent!")
 	res.send(newSubmission); // We can do this, I don't have an issue with it as firebase functions last 60 seconds and we can wait tbh
 });
 
 app.get('/ranking/:competitionId/:userId/', async (req, res) => {
-  const {competitionId, userId} = req.params;
-  const cacheLiftime = 1000 * 60; // 1 minute
-  let rank = 0;
+	const { competitionId, userId } = req.params;
+	const cacheLiftime = 1000 * 60; // 1 minute
+	let rank = 0;
 
-  const cacheTimeRef = await admin.database().ref(`rankings/time/${competitionId}/`).get();
-  const cacheTime = cacheTimeRef.val();
-  const rankSnapshot = await admin.database().ref(`rankings/cache/${competitionId}/${userId}/`).get();
-  rank = rankSnapshot.val()
+	const cacheTimeRef = await admin
+		.database()
+		.ref(`rankings/time/${competitionId}/`)
+		.get();
+	const cacheTime = cacheTimeRef.val();
+	const rankSnapshot = await admin
+		.database()
+		.ref(`rankings/cache/${competitionId}/${userId}/`)
+		.get();
+	rank = rankSnapshot.val();
 
-  // If cached and cached time is before its lifetime ended
-  if (cacheTime && cacheTime + cacheLiftime < Date.now() && rank) {
-    // just keep rank as is
-  } else {
-    // Otherwise build the cache and return the current user's result
-    let rankingUserDataRef = await admin.database().ref(`ranking-user-data/${competitionId}`).get();
-    let rankingUserData = rankingUserDataRef.val();
-    
-    let rankings = []
+	// If cached and cached time is before its lifetime ended
+	if (cacheTime && cacheTime + cacheLiftime < Date.now() && rank) {
+		// just keep rank as is
+	} else {
+		// Otherwise build the cache and return the current user's result
+		let rankingUserDataRef = await admin
+			.database()
+			.ref(`ranking-user-data/${competitionId}`)
+			.get();
+		let rankingUserData = rankingUserDataRef.val();
 
-    for (let currentUserId of Object.keys(rankingUserData)) {
-      rankings.push({
-        userId: currentUserId,
-        'deductions': rankingUserData[currentUserId].deductions,
-        'question-solved-count': rankingUserData[currentUserId]['question-solved-count']
-      })
-    }
+		let rankings = [];
 
-    rankings.sort((a, b) => -a['question-solved-count'] + b['question-solved-count'] || a['deductions'] - b['deductions'])
+		for (let currentUserId of Object.keys(rankingUserData)) {
+			rankings.push({
+				userId: currentUserId,
+				deductions: rankingUserData[currentUserId].deductions,
+				'question-solved-count':
+					rankingUserData[currentUserId]['question-solved-count'],
+			});
+		}
 
-    for (let currentRank in rankings) {
-      let currentUserId = rankings[currentRank].userId;
-      const newRank = parseInt(currentRank) + 1
-      admin.database().ref(`rankings/cache/${competitionId}/${currentUserId}`).set(newRank)
-      if (currentUserId == userId) {
-        rank = newRank
-      }
-    }
-  }
+		rankings.sort(
+			(a, b) =>
+				-a['question-solved-count'] + b['question-solved-count'] ||
+				a['deductions'] - b['deductions']
+		);
 
-    admin.database().ref(`rankings/time/${competitionId}/`).set(Date.now())
+		for (let currentRank in rankings) {
+			let currentUserId = rankings[currentRank].userId;
+			const newRank = parseInt(currentRank) + 1;
+			admin
+				.database()
+				.ref(`rankings/cache/${competitionId}/${currentUserId}`)
+				.set(newRank);
+			if (currentUserId == userId) {
+				rank = newRank;
+			}
+		}
+	}
 
-  res.send(rank.toString())
-})
+	admin.database().ref(`rankings/time/${competitionId}/`).set(Date.now());
+
+	res.send(rank.toString());
+});
 
 app.post('/test/', (req, res) => {
 	const { submission, language, stdin } = req.body;

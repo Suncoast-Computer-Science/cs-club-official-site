@@ -37,12 +37,7 @@ export default function CompetitionHomepage() {
 
 		const getPlacement = async () => {
 			const { currentUser } = getAuth();
-			console.log(currentUser);
-
-			if (!currentUser?.uid) {
-				setPlacement('No Submissions!');
-				return;
-			}
+			if (currentUser?.uid) return;
 			const { data } = await getRank(id, currentUser.uid);
 			setPlacement(data);
 		};
