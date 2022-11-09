@@ -1,5 +1,4 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { auth, db } from './firebase';
 import {
 	GoogleAuthProvider,
@@ -10,8 +9,6 @@ import {
 import { getDatabase, ref, child, get } from 'firebase/database';
 
 const AuthContext = createContext();
-
-const navigate = useNavigate();
 
 const useAuth = () => useContext(AuthContext);
 
@@ -25,6 +22,8 @@ const AuthProvider = ({ children }) => {
 		try {
 			await signInWithPopup(auth, provider);
 		} catch (error) {
+			// TODO: handle different errors separately
+			console.log(error);
 			return error;
 		}
 	}
@@ -33,26 +32,41 @@ const AuthProvider = ({ children }) => {
 		return signOut(auth);
 	}
 
+	let x = 0;
 	useEffect(() => {
+		let newFirstTime = false;
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			setLoading(false);
 			setCurrentUser(user);
-			if (user) {
+			x = 1;
+			try {
 				const userId = user.uid;
 				const dbRef = ref(getDatabase());
 				get(child(dbRef, `users/${userId}`)).then((snapshot) => {
-					if (!snapshot.exists()) {
-						setFirstTime(true);
-						console.log('New User');
-					} else {
-						setFirstTime(false);
-						console.log('Old User');
-					}
+					newFirstTime = !snapshot.exists();
 				});
-			} else {
-				console.log('No current user');
+			} catch (error) {
+				console.error('ERROR: No current user');
 			}
+			// if (user) {
+			// 	const userId = user.uid;
+			// 	const dbRef = ref(getDatabase());
+			// 	get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+			// 		// if (!snapshot.exists()) {
+			// 		// 	newFirstTime = true;
+			// 		// 	const x = 2;
+			// 		// } else {
+			// 		// 	newFirstTime = false;
+			// 		// }
+			// 		newFirstTime = !snapshot.exists();
+			// 		console.log(newFirstTime);
+			// 	});
+			// } else {
+			// 	console.log('No current user');
+			// }
+			// setFirstTime(newFirstTime);
 		});
+		console.log(x);
 
 		return unsubscribe;
 	}, []);
