@@ -16,7 +16,6 @@ import { useAuth } from '../api/AuthContext';
 export default function Signin() {
 	const navigate = useNavigate();
 	const { signin } = useAuth();
-	const { firstTime } = useAuth();
 	const [errorMessage, setErrorMessage] = useState(null);
 	const emailRef = useRef(null);
 	const passwordRef = useRef(null);
@@ -26,8 +25,6 @@ export default function Signin() {
 		const error = await signin();
 		if (error) {
 			setErrorMessage('Something went wrong!');
-		} else if (firstTime) {
-			navigate('/register');
 		} else {
 			navigate('/');
 		}
