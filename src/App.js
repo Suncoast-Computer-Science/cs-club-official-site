@@ -40,7 +40,10 @@ function App() {
 						}
 					/>
 					<Route exact path='/competitions' element={<Competitions />} />
-					<Route path='/competitions/:id' element={<CompetitionHomepage />} />
+					<Route
+						path='/competitions/:competitionId'
+						element={<CompetitionHomepage />}
+					/>
 					<Route
 						path='/competitions/:competitionId/:problemId'
 						element={<ProblemHomepage />}
