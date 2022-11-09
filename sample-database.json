@@ -3,10 +3,10 @@
 		"competition-id": {
 			"name": "MIT Creative Portolio Example",
 			"about": "Hello MIT!",
-      "deductions": {
-        "minute": 1,
-        "incorrect": 10
-      },
+			"deductions": {
+				"minute": 1,
+				"incorrect": 10
+			},
 			"start-date": 1638814670162,
 			"end-date": 1666737338019,
 			"in-person": true,
@@ -35,44 +35,24 @@
 			},
 			"testcases": [
 				{
+					"time-limits": {
+						"71": 5.0,
+						"76": 5.0,
+						"50": 5.0,
+						"62": 5.0
+					},
 					"input": "Monty\n",
 					"output": "Hello, Monty!\n"
 				},
 				{
+					"time-limits": {
+						"71": 5.0,
+						"76": 5.0,
+						"50": 5.0,
+						"62": 5.0
+					},
 					"input": "Bruh\n",
 					"output": "Hello, Bruh!\n"
-				},
-				{
-					"input": "Rohit\n",
-					"output": "Hello, Rohit!\n"
-				},
-				{
-					"input": "Mr. Donato\n",
-					"output": "Hello, Mr. Donato!\n"
-				},
-				{
-					"input": "CS Club\n",
-					"output": "Hello, CS Club!\n"
-				},
-				{
-					"input": "World\n",
-					"output": "Hello, World!\n"
-				},
-				{
-					"input": "Finland\n",
-					"output": "Hello, Finland!\n"
-				},
-				{
-					"input": "Test Cases\n",
-					"output": "Hello, Test Cases!\n"
-				},
-				{
-					"input": "Mr. Dasgupta\n",
-					"output": "Hello, Mr. Dasgupta!\n"
-				},
-				{
-					"input": "Bruh2\n",
-					"output": "Hello, Bruh2!\n"
 				}
 			]
 		}

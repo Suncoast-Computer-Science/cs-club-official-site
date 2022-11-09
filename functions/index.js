@@ -70,12 +70,11 @@ app.get('/submission/:competitionId/:problemId/:userId', async (req, res) => {
 	res.send(testcases);
 });
 
-const validateTestcase = (submission, language, stdin, stdout) => {
+const validateTestcase = (submission, language, timeLimits, stdin, stdout) => {
 	return axios({
 		method: 'POST',
 		url: 'https://' + process.env.RAPIDAPI_ENDPOINT + '/submissions',
 		params: {
-			base64_endcoded: 'true',
 			wait: 'true',
 		},
 		headers: {
@@ -87,6 +86,7 @@ const validateTestcase = (submission, language, stdin, stdout) => {
 			language_id: language,
 			source_code: submission,
 			stdin,
+			cpu_time_limit: parseFloat(timeLimits[language]),
 			expected_output: stdout,
 		},
 	});
@@ -124,6 +124,7 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 		.ref(`problems/${problemId}/testcases`)
 		.once('value');
 	const testcases = testcaseSnapshot.val();
+	console.log(testcases)
 
 	//Get submissions
 	const submissionsSnapshot = await admin
@@ -150,9 +151,15 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 		.child(index)
 		.set(newSubmission);
 
-	let promises = testcases.map(({ input, output }) =>
-		validateTestcase(submission, language, input, output)
-	);
+	let promises = testcases.map((testcase) => {
+		return validateTestcase(
+			submission,
+			language,
+			testcase['time-limits'],
+			testcase.input,
+			testcase.output
+		);
+	});
 
 	const results = await Promise.all(promises);
 
@@ -170,7 +177,6 @@ app.post('/submission/:competitionId/:problemId/:userId/', async (req, res) => {
 
 	// Adds 1 to the number of questions a user has solved for a competition
 	if (countAccepted === results.length) {
-		console.log('bruh');
 		const questionSolvedCountRef = admin
 			.database()
 			.ref(`question-solved-count/${competitionId}/${userId}`);
