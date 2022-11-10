@@ -33,11 +33,13 @@ export default function Signin() {
 	let displayName;
 	let schoolEmail;
 	let userId;
+	let photoURL;
 
 	if (currentUser) {
 		displayName = currentUser.displayName;
 		schoolEmail = currentUser.email;
 		userId = currentUser.uid;
+		photoURL = currentUser.photoURL;
 	}
 
 	async function handleEvent(e) {
@@ -46,10 +48,18 @@ export default function Signin() {
 		const name = nameRef.current.value;
 		const grade = gradeRef.current.value;
 		const consent = consentRef.current.value;
-		const error = await register(email, name);
+		const error = await register(
+			userId,
+			name,
+			schoolEmail,
+			personalEmail,
+			photoURL,
+			grade,
+			consent
+		);
 
 		if (error) {
-			setErrorMessage('Error: ' + error.code.slice(5));
+			setErrorMessage('Something went wrong!');
 		} else {
 			navigate('/');
 		}

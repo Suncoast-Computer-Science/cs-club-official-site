@@ -6,10 +6,9 @@ import {
 	signOut,
 	onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, child, get } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
 
 const AuthContext = createContext();
-
 const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
@@ -22,6 +21,31 @@ const AuthProvider = ({ children }) => {
 			await signInWithPopup(auth, provider);
 		} catch (error) {
 			// TODO: handle different errors separately
+			console.log(error);
+			return error;
+		}
+	}
+
+	async function register(
+		userId,
+		name,
+		schoolEmail,
+		personalEmail,
+		photoURL,
+		grade,
+		consent
+	) {
+		const db = getDatabase();
+		try {
+			set(ref(db, 'users/' + userId), {
+				name: name,
+				school_email: schoolEmail,
+				personal_email: personalEmail,
+				profile_picture: photoURL,
+				grade_level: grade,
+				email_consent: consent,
+			});
+		} catch (error) {
 			console.log(error);
 			return error;
 		}
@@ -43,6 +67,7 @@ const AuthProvider = ({ children }) => {
 		currentUser,
 		signin,
 		signout,
+		register,
 		db,
 		auth,
 	};
