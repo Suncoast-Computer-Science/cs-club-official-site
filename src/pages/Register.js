@@ -19,13 +19,33 @@ export default function Signin() {
 	const navigate = useNavigate();
 	const { register, currentUser } = useAuth();
 	const [errorMessage, setErrorMessage] = useState(null);
-	const emailRef = useRef(null);
+	// The final data for `personalEmail`, `name`, `grade`, `consent`, and eventually `highschool` will be read from the form.
+	// Data from `user` object is needed to initially fill in the form default values if applicaple + to get access to the `schoolEmail` and `userId`
+
+	// The references to get data from forms
+	const personalEmailRef = useRef(null);
 	const nameRef = useRef(null);
+	const gradeRef = useRef(null);
+	const consentRef = useRef(null);
+	const schoolRef = useRef(null); //TODO: implement highschool select
+
+	// Variables for data from `user` object
+	let displayName;
+	let schoolEmail;
+	let userId;
+
+	if (currentUser) {
+		displayName = currentUser.displayName;
+		schoolEmail = currentUser.email;
+		userId = currentUser.uid;
+	}
 
 	async function handleEvent(e) {
 		e.preventDefault();
-		const email = emailRef.current.value;
+		const personalEmail = personalEmailRef.current.value;
 		const name = nameRef.current.value;
+		const grade = gradeRef.current.value;
+		const consent = consentRef.current.value;
 		const error = await register(email, name);
 
 		if (error) {
@@ -33,15 +53,6 @@ export default function Signin() {
 		} else {
 			navigate('/');
 		}
-	}
-
-	let displayName;
-	let schoolEmail;
-	let userId;
-	if (currentUser) {
-		displayName = currentUser.displayName;
-		schoolEmail = currentUser.email;
-		userId = currentUser.uid;
 	}
 
 	return (
@@ -76,16 +87,6 @@ export default function Signin() {
 											defaultValue={displayName}
 										/>
 									</Form.Group>
-									<Form.Group className='mb-3' controlId='formGroupSchoolEmail'>
-										<Form.Label>School Email address</Form.Label>
-										<Form.Control
-											disabled
-											type='email'
-											ref={emailRef}
-											placeholder='Enter school email'
-											defaultValue={schoolEmail}
-										/>
-									</Form.Group>
 									<Form.Group
 										className='mb-3'
 										controlId='formGroupPersonalEmail'
@@ -105,15 +106,14 @@ export default function Signin() {
 										</OverlayTrigger>
 										<Form.Control
 											type='email'
-											ref={emailRef}
+											ref={personalEmailRef}
 											placeholder='Enter school email'
 											defaultValue={schoolEmail}
 										/>
 									</Form.Group>
-									<Form.Group></Form.Group>
 									<Form.Group className='mb-3' controlId='formGroupGrade'>
 										<Form.Label>Grade level</Form.Label>
-										<Form.Select>
+										<Form.Select ref={gradeRef}>
 											{[
 												'Select Grade',
 												'9th',
@@ -126,7 +126,11 @@ export default function Signin() {
 											))}
 										</Form.Select>
 										<div className='mt-4'>
-											<Form.Check className='d-inline' type='switch' />
+											<Form.Check
+												className='d-inline'
+												ref={consentRef}
+												type='switch'
+											/>
 											<p className='d-inline mx-2'>
 												Agree to recieve emails from Suncoast CS Club
 											</p>
