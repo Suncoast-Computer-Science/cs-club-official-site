@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ref, get, child } from 'firebase/database';
 import { useAuth } from '../api/AuthContext';
-import { getAuth } from 'firebase/auth';
 
 import ProblemCard from '../components/ProblemCard';
 import Header from '../components/Header';
@@ -10,7 +9,7 @@ import CompetitionHomepageHeader from '../components/CompetitionHomepageHeader';
 import { getRank } from '../api/BackendRequests';
 
 export default function CompetitionHomepage() {
-	const { db } = useAuth();
+	const { currentUser, db } = useAuth();
 	const dbRef = ref(db);
 	const { id } = useParams();
 	const [problemData, setProblemData] = useState([]);
@@ -34,16 +33,15 @@ export default function CompetitionHomepage() {
 			setProblemData(problems);
 		};
 		getCompetitionData();
-
-		const getPlacement = async () => {
-			const { currentUser } = getAuth();
-			if (currentUser?.uid) return;
-			const { data } = await getRank(id, currentUser.uid);
-			setPlacement(data);
-		};
-
-		getPlacement();
 	}, []);
+
+	useEffect(() => {
+		if (currentUser) {
+			getRank(id, currentUser.uid).then(({ data }) => {
+				setPlacement(data);
+			});
+		}
+	}, [currentUser]);
 
 	// useEffect(() => {
 	//   if (!competitionData) return; // Ensure that this only runs once the data from the competition comes
