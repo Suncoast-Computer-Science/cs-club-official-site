@@ -8,6 +8,7 @@ export default function ProblemSubmissionButtons({
 	handleShow,
 	isProcessing,
 	passedAll,
+	disableSubmission = false,
 }) {
 	const { currentUser } = useAuth();
 	if (isProcessing) {
@@ -18,7 +19,7 @@ export default function ProblemSubmissionButtons({
 				<div className='col-sm-4'>
 					<p className='col-form-label'>Test Input: </p>
 					<textarea
-						className='form-control'
+						className='form-control pb-5 mb-5'
 						style={{ height: '100%' }}
 						ref={sampleInputRef}
 					></textarea>
@@ -26,7 +27,7 @@ export default function ProblemSubmissionButtons({
 				<div className='col-sm-4'>
 					<p className='col-form-label col-sm-2'>Output: </p>
 					<textarea
-						className='form-control'
+						className='form-control pb-5 mb-5'
 						style={{ height: '100%' }}
 						value={testResponse}
 						readOnly
@@ -45,6 +46,8 @@ export default function ProblemSubmissionButtons({
 								Passed!
 							</button>
 						</>
+					) : disableSubmission ? (
+						<> </>
 					) : (
 						<>
 							<div className='py-1'>

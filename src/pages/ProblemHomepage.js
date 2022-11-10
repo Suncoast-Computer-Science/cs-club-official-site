@@ -16,6 +16,7 @@ import Editor from '../components/Editor';
 import ProblemSubmissionButtons from '../components/ProblemSubmissionButtons.js';
 import ProblemData from '../components/ProblemData';
 import ProblemLanguageSelector from '../components/ProblemLanguageSelector';
+import { languageIdToName } from '../helpers/languages';
 
 export default function ProblemHomepage() {
 	const { db, currentUser } = useAuth();
@@ -92,14 +93,6 @@ export default function ProblemHomepage() {
 		updatePassedAllLastSubmission();
 	}, [lastSubmissionData]);
 
-	const languageIdToName = (id) => {
-		return {
-			71: 'python',
-			76: 'cpp',
-			50: 'c',
-			62: 'java',
-		}[id];
-	};
 	const onTestSubmit = async (e) => {
 		e.preventDefault();
 		if (!isProcessing) {
