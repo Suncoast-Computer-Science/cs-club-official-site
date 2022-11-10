@@ -12,14 +12,14 @@ import { getRank } from '../api/BackendRequests';
 export default function CompetitionHomepage() {
 	const { db } = useAuth();
 	const dbRef = ref(db);
-	const { competitionId } = useParams();
+	const { id } = useParams();
 	const [problemData, setProblemData] = useState([]);
 	const [competitionData, setCompetitionData] = useState(null);
 	const [placement, setPlacement] = useState('');
 
 	useEffect(() => {
 		const getCompetitionData = async () => {
-			const snapshot = await get(child(dbRef, 'competitions/' + competitionId));
+			const snapshot = await get(child(dbRef, 'competitions/' + id));
 			let data = snapshot.val();
 			setCompetitionData(data);
 
@@ -38,7 +38,7 @@ export default function CompetitionHomepage() {
 		const getPlacement = async () => {
 			const { currentUser } = getAuth();
 			if (currentUser?.uid) return;
-			const { data } = await getRank(competitionId, currentUser.uid);
+			const { data } = await getRank(id, currentUser.uid);
 			setPlacement(data);
 		};
 
@@ -63,7 +63,7 @@ export default function CompetitionHomepage() {
 			/>
 			{problemData.map((problem, index) => (
 				<ProblemCard
-					competitionId={competitionId}
+					competitionId={id}
 					problemId={problem.id}
 					problemAuthor={problem.author}
 					problemName={problem.name}
