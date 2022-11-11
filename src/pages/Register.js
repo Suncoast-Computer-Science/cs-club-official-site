@@ -19,6 +19,7 @@ export default function Signin() {
 	const navigate = useNavigate();
 	const { register, currentUser } = useAuth();
 	const [errorMessage, setErrorMessage] = useState(null);
+	const [validated, setValidated] = useState(false);
 	// The final data for `personalEmail`, `name`, `grade`, `consent`, and eventually `highschool` will be read from the form.
 	// Data from `user` object is needed to initially fill in the form default values if applicaple + to get access to the `schoolEmail` and `userId`
 
@@ -42,8 +43,17 @@ export default function Signin() {
 		photoURL = currentUser.photoURL;
 	}
 
-	async function handleEvent(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
+		// Check if form is validated (filled in)
+		const form = e.currentTarget;
+		if (form.checkValidity() === false) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		setValidated(true);
+
 		const personalEmail = personalEmailRef.current.value;
 		const name = nameRef.current.value;
 		const grade = gradeRef.current.value;
@@ -87,10 +97,11 @@ export default function Signin() {
 									{errorMessage}
 								</Alert>
 
-								<Form>
+								<Form validated={validated} onSubmit={handleSubmit}>
 									<Form.Group className='mb-3' controlId='formGroupName'>
 										<Form.Label>Full Name</Form.Label>
 										<Form.Control
+											required
 											type='text'
 											ref={nameRef}
 											placeholder='Name'
@@ -115,6 +126,7 @@ export default function Signin() {
 											</Form.Label>
 										</OverlayTrigger>
 										<Form.Control
+											required
 											type='email'
 											ref={personalEmailRef}
 											placeholder='Enter school email'
@@ -123,20 +135,17 @@ export default function Signin() {
 									</Form.Group>
 									<Form.Group className='mb-3' controlId='formGroupGrade'>
 										<Form.Label>Grade level</Form.Label>
-										<Form.Select ref={gradeRef}>
-											{[
-												'Select Grade',
-												'9th',
-												'10th',
-												'11th',
-												'12th',
-												'Other',
-											].map((grade) => (
+										<Form.Select required ref={gradeRef}>
+											<option value='' disabled selected hidden>
+												Select a grade
+											</option>
+											{['9th', '10th', '11th', '12th', 'Other'].map((grade) => (
 												<option value={grade}>{grade}</option>
 											))}
 										</Form.Select>
 										<div className='mt-4'>
 											<Form.Check
+												required
 												className='d-inline'
 												ref={consentRef}
 												type='switch'
@@ -146,10 +155,10 @@ export default function Signin() {
 											</p>
 										</div>
 									</Form.Group>
+									<Button variant='primary' type='submit'>
+										Confirm
+									</Button>
 								</Form>
-								<Button variant='primary' onClick={handleEvent} type='submit'>
-									Confirm
-								</Button>
 							</Card.Body>
 							{/*  TODO: implement log out  */}
 							<Card.Footer>
