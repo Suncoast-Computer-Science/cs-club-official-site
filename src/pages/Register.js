@@ -14,6 +14,7 @@ import {
 import Header from '../components/Header';
 
 import { useAuth } from '../api/AuthContext';
+import RegisterForm from '../components/RegisterForm';
 
 export default function Signin() {
 	const navigate = useNavigate();
@@ -96,71 +97,18 @@ export default function Signin() {
 								<Alert hidden={!errorMessage} variant='warning'>
 									{errorMessage}
 								</Alert>
-
-								<Form validated={validated} onSubmit={handleSubmit}>
-									<Form.Group className='mb-3' controlId='formGroupName'>
-										<Form.Label>Full Name</Form.Label>
-										<Form.Control
-											required
-											type='text'
-											ref={nameRef}
-											placeholder='Name'
-											defaultValue={displayName}
-										/>
-									</Form.Group>
-									<Form.Group
-										className='mb-3'
-										controlId='formGroupPersonalEmail'
-									>
-										<OverlayTrigger
-											placement='right'
-											delay={{ show: 250, hide: 400 }}
-											overlay={(props) => (
-												<Tooltip {...props}>
-													So we can email you without getting blocked!
-												</Tooltip>
-											)}
-										>
-											<Form.Label>
-												Personal Email Address<b> (?) </b>
-											</Form.Label>
-										</OverlayTrigger>
-										<Form.Control
-											required
-											type='email'
-											ref={personalEmailRef}
-											placeholder='Enter school email'
-											defaultValue={schoolEmail}
-										/>
-									</Form.Group>
-									<Form.Group className='mb-3' controlId='formGroupGrade'>
-										<Form.Label>Grade level</Form.Label>
-										<Form.Select required ref={gradeRef}>
-											<option value='' disabled selected hidden>
-												Select a grade
-											</option>
-											{['9th', '10th', '11th', '12th', 'Other'].map((grade) => (
-												<option value={grade}>{grade}</option>
-											))}
-										</Form.Select>
-										<div className='mt-4'>
-											<Form.Check
-												required
-												className='d-inline'
-												ref={consentRef}
-												type='switch'
-											/>
-											<p className='d-inline mx-2'>
-												Agree to recieve emails from Suncoast CS Club
-											</p>
-										</div>
-									</Form.Group>
-									<Button variant='primary' type='submit'>
-										Confirm
-									</Button>
-								</Form>
+								<RegisterForm
+									// TODO: probably should make this an object and unwrap or something
+									validated={validated}
+									handleSubmit={handleSubmit}
+									nameRef={nameRef}
+									displayName={displayName}
+									personalEmailRef={personalEmailRef}
+									schoolEmail={schoolEmail}
+									gradeRef={gradeRef}
+									consentRef={consentRef}
+								/>
 							</Card.Body>
-							{/*  TODO: implement log out  */}
 							<Card.Footer>
 								<Card.Link
 									href='/signin'
