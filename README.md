@@ -55,13 +55,11 @@ Clone this Github repository into your local device by running
 
 ## Setup a Firebase project
 
-To run Firebase with the project yourself, you will have to make your own firebase app. Go to
-the [Firebase site](https://firebase.google.com/) and follow the instructions.
+To run Firebase with the project yourself, you will have to make your own firebase app. Go to the [Firebase site](https://firebase.google.com/) and follow the instructions.
 
 ## Dependencies
 
 ### Required CLIs
-
 First install Node
 
 - [NodeJS](https://nodejs.org/en/)
@@ -74,3 +72,11 @@ Next install the rest of the CLIs by following the instructions linked or runnin
 ### Install project dependencies
 
 Inside your local copy of the project, navigate to `cs-club-official-site/` and run the command `npm install` to install the project dependencies. Next, navigate to `cs-club-official-site/functions` and run `npm install` again.
+
+### Keys and Secrets
+
+**Firebase -**
+If you created your own firebase app, you should be able to access your keys/secrets from `Firebase Console => Settings`
+
+**Judge0 -**
+If you want to get the code submission to run, you will need to set up the [Judge0 API](https://ce.judge0.com/), also using your own values.
