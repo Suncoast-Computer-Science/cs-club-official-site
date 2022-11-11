@@ -79,4 +79,4 @@ Inside your local copy of the project, navigate to `cs-club-official-site/` and 
 If you created your own firebase app, you should be able to access your keys/secrets from `Firebase Console => Settings`
 
 **Judge0 -**
-If you want to get the code submission to run, you will need to set up the [Judge0 API](https://ce.judge0.com/), also using your own values.
+If you want to get the code submission to run, you will need to set up the [Judge0 API](https://ce.judge0.com/), also using [your own values](https://rapidapi.com/judge0-official/api/judge0-ce).
