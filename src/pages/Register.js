@@ -84,7 +84,7 @@ export default function Signin() {
 					<Col>
 						<Card
 							className='mx-auto mt-5'
-							style={{ width: '50rem', height: '40rem' }}
+							style={{ width: '50rem', height: '35rem' }}
 						>
 							<Card.Header as='h4' className='text-center'>
 								Register
