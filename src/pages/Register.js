@@ -17,7 +17,7 @@ import { useAuth } from '../api/AuthContext';
 
 export default function Signin() {
 	const navigate = useNavigate();
-	const { register, currentUser } = useAuth();
+	const { register, signout, currentUser } = useAuth();
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [validated, setValidated] = useState(false);
 	// The final data for `personalEmail`, `name`, `grade`, `consent`, and eventually `highschool` will be read from the form.
@@ -162,7 +162,11 @@ export default function Signin() {
 							</Card.Body>
 							{/*  TODO: implement log out  */}
 							<Card.Footer>
-								<Card.Link href='/signin' style={{ textDecoration: 'none' }}>
+								<Card.Link
+									href='/signin'
+									onClick={(e) => signout()}
+									style={{ textDecoration: 'none' }}
+								>
 									Don't want to register? Log out.
 								</Card.Link>
 							</Card.Footer>
