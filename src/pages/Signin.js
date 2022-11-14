@@ -23,7 +23,6 @@ export default function Signin() {
 	async function handleEvent(e) {
 		e.preventDefault();
 		const error = await signin();
-
 		if (error) {
 			setErrorMessage('Something went wrong!');
 		} else {
